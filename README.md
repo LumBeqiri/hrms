@@ -1,4 +1,4 @@
-# mstr-vue
+
 
 ## Project setup
 ```
