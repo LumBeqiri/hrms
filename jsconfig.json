@@ -1,0 +1,139 @@
+{
+  "baseUrl": ".",
+  "include": ["src/**/*", "tests/**/*"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "esnext",
+    "module": "es2015",
+    "paths": {
+      "@/*": ["./*"],
+      "@": [
+        "./index.js",
+        "./index.json",
+        "./index.vue",
+        "./index.scss",
+        "./index.css"
+      ],
+      "@src/*": ["src/*"],
+      "@src": [
+        "src/index.js",
+        "src/index.json",
+        "src/index.vue",
+        "src/index.scss",
+        "src/index.css"
+      ],
+      "@router/*": ["src/router/*"],
+      "@router": [
+        "src/router/index.js",
+        "src/router/index.json",
+        "src/router/index.vue",
+        "src/router/index.scss",
+        "src/router/index.css"
+      ],
+      "@views/*": ["src/router/views/*"],
+      "@views": [
+        "src/router/views/index.js",
+        "src/router/views/index.json",
+        "src/router/views/index.vue",
+        "src/router/views/index.scss",
+        "src/router/views/index.css"
+      ],
+      "@layouts/*": ["src/router/layouts/*"],
+      "@layouts": [
+        "src/router/layouts/index.js",
+        "src/router/layouts/index.json",
+        "src/router/layouts/index.vue",
+        "src/router/layouts/index.scss",
+        "src/router/layouts/index.css"
+      ],
+      "@helpers/*": ["src/helpers/*"],
+      "@helpers": [
+        "src/helpers/index.js",
+        "src/helpers/index.json",
+        "src/helpers/index.vue",
+        "src/helpers/index.scss",
+        "src/helpers/index.css"
+      ],
+      "@components/*": ["src/components/*"],
+      "@components": [
+        "src/components/index.js",
+        "src/components/index.json",
+        "src/components/index.vue",
+        "src/components/index.scss",
+        "src/components/index.css"
+      ],
+      "@loops/*": ["src/components/loops/*"],
+      "@loops": [
+        "src/components/loops/index.js",
+        "src/components/loops/index.json",
+        "src/components/loops/index.vue",
+        "src/components/loops/index.scss",
+        "src/components/loops/index.css"
+      ],
+      "@autocompletes/*": ["src/components/autocomplete/*"],
+      "@autocompletes": [
+        "src/components/autocomplete/index.js",
+        "src/components/autocomplete/index.json",
+        "src/components/autocomplete/index.vue",
+        "src/components/autocomplete/index.scss",
+        "src/components/autocomplete/index.css"
+      ],
+      "@modals/*": ["src/components/modals/*"],
+      "@modals": [
+        "src/components/modals/index.js",
+        "src/components/modals/index.json",
+        "src/components/modals/index.vue",
+        "src/components/modals/index.scss",
+        "src/components/modals/index.css"
+      ],
+      "@misc/*": ["src/components/misc/*"],
+      "@misc": [
+        "src/components/misc/index.js",
+        "src/components/misc/index.json",
+        "src/components/misc/index.vue",
+        "src/components/misc/index.scss",
+        "src/components/misc/index.css"
+      ],
+      "@search/*": ["src/components/search/*"],
+      "@search": [
+        "src/components/search/index.js",
+        "src/components/search/index.json",
+        "src/components/search/index.vue",
+        "src/components/search/index.scss",
+        "src/components/search/index.css"
+      ],
+      "@assets/*": ["src/assets/*"],
+      "@assets": [
+        "src/assets/index.js",
+        "src/assets/index.json",
+        "src/assets/index.vue",
+        "src/assets/index.scss",
+        "src/assets/index.css"
+      ],
+      "@utils/*": ["src/utils/*"],
+      "@utils": [
+        "src/utils/index.js",
+        "src/utils/index.json",
+        "src/utils/index.vue",
+        "src/utils/index.scss",
+        "src/utils/index.css"
+      ],
+      "@state/*": ["src/state/*"],
+      "@state": [
+        "src/state/index.js",
+        "src/state/index.json",
+        "src/state/index.vue",
+        "src/state/index.scss",
+        "src/state/index.css"
+      ],
+      "@styles/*": ["src/assets/scss/main.scss/*"],
+      "@styles": [
+        "src/assets/scss/main.scss/index.js",
+        "src/assets/scss/main.scss/index.json",
+        "src/assets/scss/main.scss/index.vue",
+        "src/assets/scss/main.scss/index.scss",
+        "src/assets/scss/main.scss/index.css"
+      ]
+    }
+  }
+}
