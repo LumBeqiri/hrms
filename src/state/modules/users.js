@@ -129,7 +129,7 @@ const actions = {
 
     return new Promise((resolve, reject) => {
       API_CONFIG.SITE_AXIOS
-        .delete(current_api, data , {
+        .delete(current_api , {
           cache: false,
           retryTimes: 2
         })

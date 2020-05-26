@@ -266,7 +266,22 @@ export default {
       },
 
       singleUser(){
-        return this.$store.getters['users/get_hrms_user']
+        let data  =  this.$store.getters['users/get_hrms_user']
+       console.log("useri")
+       console.log(data)
+        this.id = data.id,
+        this.first_name = data.metadata.first_name,
+        this.last_name = data.metadata.last_name,
+        this.base_salary = data.metadata.base_salary,
+        this.street = data.metadata.street,
+        this.city = data.metadata.city,
+        this.country = data.metadata.country,
+        this.email = data.email,
+        this.department_id = data.department.id,
+        this.role_id = data.role.id,
+        this.password = ''
+        this.confirm_password = ''
+        return data;
 
       },
       rolesList(){
@@ -354,20 +369,21 @@ export default {
       },
       async get_user(id){
         await this.$store.dispatch('users/GET_HRMS_USER',id)
-        let data = this.$store.getters['users/get_hrms_user']
-       // console.log(data)
-        this.id = data.id,
-        this.first_name = data.metadata.first_name,
-        this.last_name = data.metadata.last_name,
-        this.base_salary = data.metadata.base_salary,
-        this.street = data.metadata.street,
-        this.city = data.metadata.city,
-        this.country = data.metadata.country,
-        this.email = data.email,
-        this.department_id = data.department.id,
-        this.role_id = data.role.id,
-        this.password = ''
-        this.confirm_password = ''
+      //   let data = this.$store.getters['users/get_hrms_user']
+      //  console.log("useri")
+      //  console.log(data)
+      //   this.id = data.id,
+      //   this.first_name = data.metadata.first_name,
+      //   this.last_name = data.metadata.last_name,
+      //   this.base_salary = data.metadata.base_salary,
+      //   this.street = data.metadata.street,
+      //   this.city = data.metadata.city,
+      //   this.country = data.metadata.country,
+      //   this.email = data.email,
+      //   this.department_id = data.department.id,
+      //   this.role_id = data.role.id,
+      //   this.password = ''
+      //   this.confirm_password = ''
       },
 
       async get_roles(){
@@ -439,6 +455,7 @@ export default {
       this.get_departments();
       this.get_user();
       this.get_roles();
+      
 
       
 

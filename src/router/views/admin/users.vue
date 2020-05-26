@@ -49,7 +49,8 @@
                           <td>Name</td>
                           <td>Surname</td>
                           <td>Department</td>
-                          <td></td>
+                          <td>Role</td>
+                          <td>Operations</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,6 +64,9 @@
                           <td>
                              {{user_item.department.name | capitalizeLetter}}
                           </td>
+                          <td>
+                             {{user_item.role.name | capitalizeLetter}}
+                          </td>
                           <template v-if="user_role.id == 1">
                               <td class="table-actions">
                                  <b-button size="md"  :to="{ name: 'usersSingle', params: { userId: user_item.id }}" variant="info" class="ml-2" type="submit">View</b-button>
@@ -72,7 +76,7 @@
                           </template>
                            <template v-if="user_role.id !== 1">
                               <td class="table-actions">
-                                 <b-button size="md"  :to="'' + user_item.id" variant="info" class="ml-2" type="submit">View</b-button>
+                                 <b-button size="md"  :to="{ name: 'usersSingle', params: { userId: user_item.id }}" variant="info" class="ml-2" type="submit">View</b-button>
                               </td>
                           </template>
 
@@ -122,10 +126,12 @@ export default {
          let result =  await this.$store.dispatch('users/GET_HRMS_USERS')
 
       },
-      // async deleteUser(id){
-      //    let result =  await this.$store.dispatch('users/DELETE_USER', id)
+      async deleteUser(id){
+         let result =  await this.$store.dispatch('users/DELETE_USER', id)
+        await this.$store.dispatch('users/GET_HRMS_USERS')
 
-      // },
+         
+      },
       editDepartment(departmentID){
         alert(departmentID)
       },
