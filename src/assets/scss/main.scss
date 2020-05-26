@@ -4,6 +4,9 @@
 @import 'variables';
 @import 'typography';
 @import 'form';
+@import 'general';
+@import 'table';
+@import 'modal';
 
 body {
   background: #fff;
@@ -15,6 +18,7 @@ body {
   &.public-pages{
     background:#fff;
   }
+  
 }
 
 input {

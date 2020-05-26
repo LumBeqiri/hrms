@@ -13,6 +13,7 @@ Vue.use(VueLazyload, {
 })
 
 
+
 Vue.component('mstrNotification',
   () => import('@misc/MstrErrorBottomNotifications.vue')
 )

@@ -2,14 +2,13 @@
 import {
   API_CONFIG
 } from '@utils/server.js';
-import router from '@router'
-import Vue from 'vue'
-
 
 
 const state = {
   hrms_users: [],
   hrms_user: []
+
+
 };
 
 
@@ -22,6 +21,7 @@ const mutations = {
   },
   RESET(state) {
     state.hrms_users = []
+    state.hrms_user = []
   }
 };
 
@@ -53,19 +53,43 @@ const actions = {
 
   //get single user from api
   GET_HRMS_USER({commit}, user_id) {
-
+    if(user_id == '' || user_id == null){
+      return
+    }
     let current_api = API_CONFIG.API_ENDPOINT + 'users/'+ user_id
 
     return new Promise((resolve, reject) => {
       API_CONFIG.SITE_AXIOS
-        .get(current_api, user_id, {
+        .get(current_api, {}, {
           cache: true,
           retryTimes: 2
         })
         .then(response => {
-         console.log(response)
           commit('SET_HRMS_USER', response.data)
           resolve(true);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  },
+
+
+  //get single user from api
+  CREATE_USER({}, user_details) {
+   
+    let current_api = API_CONFIG.API_ENDPOINT + 'users'
+    let data = { 
+        ...user_details
+    }
+    return new Promise((resolve, reject) => {
+      API_CONFIG.SITE_AXIOS
+        .post(current_api, data , {
+          cache: false,
+          retryTimes: 2
+        })
+        .then(response => {
+           resolve(true);
         })
         .catch(error => {
           reject(error);
