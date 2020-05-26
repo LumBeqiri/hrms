@@ -5,7 +5,7 @@
     header-class="msrt-modal-title without-icon primary"
     body-class="modal-body-desc modal-with-form"
     footer-class="modal_actions"
-    @show="modalIsVisible"
+
     @hide="ChangeToDefault"
     ref="EditUserModal"
     title="Using Component Methods"
@@ -206,11 +206,7 @@
                                 class="hrms_input"
                                 required
                                 >
-                        <p v-show="validation.hasError('passowrd')" class="error_message">
-                                <template v-if="validation.allErrors('passowrd') == 'Required.'">
-                                This field is required
-                                </template>
-                            </p>
+                       
                     </div>
 
                 </div>
@@ -222,13 +218,7 @@
                                 v-model="confirm_password"
                                 placeholder="Confirm Password"
                                 class="hrms_input"
-                                required
-                                >
-                        <p v-show="validation.hasError('confirm_password')" class="error_message">
-                                <template v-if="validation.allErrors('confirm_password') == 'Required.'">
-                                This field is required
-                                </template>
-                            </p>
+                            >
                     </div>
 
                 </div>
@@ -244,12 +234,12 @@
       </div>
       <div class="button_item">
             <b-button
-            @click="CreateUser()"
+            @click="EditUser()"
             variant="primary"
             type="submit"
             id="apply-filter-masters"
             >
-            <template v-if="!buttonSubmitting">Add new user</template>
+            <template v-if="!buttonSubmitting">Save</template>
                 <template v-else>
                     <b-spinner small variant="white" label="Spinning"></b-spinner>
                 </template>
@@ -260,7 +250,10 @@
 </template>
 
 <script>
+import { globalMixings } from '@utils/global-mixin'
+
 export default {
+  mixins: [globalMixings],
 
   name: 'EditUserModal',
   components: {
@@ -295,13 +288,11 @@ export default {
 
   },
 
-  /**
-   *
-   *    ! TOMOROW I HAVE TO SAVE THE SELECTED MASTER TYPE AND MASTER PARTNER STUDIO ID AND OPEN NEW MODAL
-   */
+  
    data() {
         return {
                 buttonSubmitting: false,
+                id: '',
                 first_name: '',
                 last_name:'',
                 base_salary:  '',
@@ -312,7 +303,8 @@ export default {
                 department_id: '',
                 role_id: '',
                 password: '',
-                confirm_password: ''
+                confirm_password:''
+
                
 
     }
@@ -360,22 +352,22 @@ export default {
          let result =  await this.$store.dispatch('departments/GET_DEPARTMENTS')
         
       },
-
       async get_user(id){
         await this.$store.dispatch('users/GET_HRMS_USER',id)
         let data = this.$store.getters['users/get_hrms_user']
-     console.log(data)
-                this.first_name = data.metadata.first_name,
-                this.last_name = data.metadata.last_name,
-                this.base_salary = data.metadata.base_salary,
-                this.street = data.metadata.street,
-                this.city = data.metadata.city,
-                this.country = data.metadata.country,
-                this.email = data.email,
-                this.department_id = data.department.id,
-                this.role_id = data.role.id,
-                this.password = '',
-                this.confirm_password = ''
+       // console.log(data)
+        this.id = data.id,
+        this.first_name = data.metadata.first_name,
+        this.last_name = data.metadata.last_name,
+        this.base_salary = data.metadata.base_salary,
+        this.street = data.metadata.street,
+        this.city = data.metadata.city,
+        this.country = data.metadata.country,
+        this.email = data.email,
+        this.department_id = data.department.id,
+        this.role_id = data.role.id,
+        this.password = ''
+        this.confirm_password = ''
       },
 
       async get_roles(){
@@ -390,9 +382,8 @@ export default {
     toggleModal(id) {
       this.$refs['EditUserModal'].show()
       this.get_user(id)
-      
-
-
+      this.id = id;
+      //console.log(id)
     },
 
     
@@ -407,11 +398,12 @@ export default {
     //}
 
 
-    async CreateUser() {
+    async EditUser() {
     //   let validationSucceded = await this.$validate()
     //   console.log(validationSucceded)
     
         let data = {
+                "id" : this.id,
                 "first_name": this.first_name,
                 "last_name" : this.last_name,
                 "base_salary": this.base_salary,
@@ -425,8 +417,10 @@ export default {
                 "confirm_password": this.confirm_password
             }
 
-console.log(data);
-        let result = await this.$store.dispatch('users/CREATE_USER', data)
+       
+
+        let result = await this.$store.dispatch('users/EDIT_USER', data)
+
         if(result){
                 await this.$store.dispatch('users/GET_HRMS_USERS')
                 this.hideModal()

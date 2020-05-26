@@ -97,6 +97,51 @@ const actions = {
     });
   },
 
+  EDIT_USER({}, user_details) {
+    let data = { 
+      ...user_details
+  }
+  
+    let current_api = API_CONFIG.API_ENDPOINT + 'users/'+ data.id
+  console.log(current_api)
+   
+
+    return new Promise((resolve, reject) => {
+      API_CONFIG.SITE_AXIOS
+        .patch(current_api, data , {
+          cache: false,
+          retryTimes: 2
+        })
+        .then(response => {
+           resolve(true);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  },
+
+  DELETE_USER({}, user_id) {
+  
+    let current_api = API_CONFIG.API_ENDPOINT + 'users/'+ user_id
+  console.log(user_id)
+   
+
+    return new Promise((resolve, reject) => {
+      API_CONFIG.SITE_AXIOS
+        .delete(current_api, data , {
+          cache: false,
+          retryTimes: 2
+        })
+        .then(response => {
+           resolve(true);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  },
+
 
 };
 

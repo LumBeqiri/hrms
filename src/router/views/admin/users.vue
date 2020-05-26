@@ -66,7 +66,7 @@
                           <template v-if="user_role.id == 1">
                               <td class="table-actions">
                                  <b-button size="md"  :to="{ name: 'usersSingle', params: { userId: user_item.id }}" variant="info" class="ml-2" type="submit">View</b-button>
-                                <b-button size="md" @click="editUser(user_item.id)" variant="danger" class="ml-2" type="submit">Delete</b-button>
+                                <b-button size="md" @click="deleteUser(user_item.id)" variant="danger" class="ml-2" type="submit">Delete</b-button>
                                 <b-button size="md"  @click="openEditUserModal(user_item.id)" variant="success" class="ml-2" type="submit">Edit</b-button>
                               </td>
                           </template>
@@ -122,6 +122,10 @@ export default {
          let result =  await this.$store.dispatch('users/GET_HRMS_USERS')
 
       },
+      // async deleteUser(id){
+      //    let result =  await this.$store.dispatch('users/DELETE_USER', id)
+
+      // },
       editDepartment(departmentID){
         alert(departmentID)
       },

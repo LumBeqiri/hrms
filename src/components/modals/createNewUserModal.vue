@@ -203,8 +203,8 @@
                                 class="hrms_input"
                                 required
                                 >
-                        <p v-show="validation.hasError('passowrd')" class="error_message">
-                                <template v-if="validation.allErrors('passowrd') == 'Required.'">
+                        <p v-show="validation.hasError('password')" class="error_message">
+                                <template v-if="validation.allErrors('password') == 'Required.'">
                                 This field is required
                                 </template>
                             </p>
