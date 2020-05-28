@@ -22,7 +22,7 @@
                         <div class="hrms_actions text-right">
                               <ul>
                                 <li>
-                                      <b-button variant="primary" @click="openNewUserModal">Create user</b-button>
+                                    <b-button variant="primary" @click="openNewUserModal">Create user</b-button>
                                 </li>
                               </ul>
                           </div>

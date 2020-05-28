@@ -6,9 +6,10 @@ const Signup = () => import(/* webpackChunkName: "Signup" */ '@views/authenticat
 
 const Dashboard = () => import(/* webpackChunkName: "AdminPageDashboard" */ '@views/admin/dashboard/dashboard.vue');
 const Departments = () => import(/* webpackChunkName: "AdminPageDepartments" */ '@views/admin/departments.vue');
-const DepartmentSingle = () => import(/* webpackChunkName: "DepartmentSingle" */ '@views/admin/departmentSingle.vue');
+const DepartmentSingle = () => import(/* webpackChunkName: "DepartmentSingle" */ '@views/admin/departmentsSingle.vue');
 const Users = () => import(/* webpackChunkName: "Users" */ '@views/admin/users.vue');
 const UsersSingle = () => import(/* webpackChunkName: "Users" */ '@views/admin/usersSingle.vue');
+
 
 
 

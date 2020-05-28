@@ -15,8 +15,8 @@
                         <h5>{{department_item.name}}</h5>
                         <div class="department-actions" v-if="user_role.id == 1">
                           <b-button size="md"  :to="{ name: 'departmentSingle', params: { departmentId: department_item.id }}" variant="info" class="ml-2" type="submit">View</b-button>
-                            <b-button size="md" @click="editDepartment(department_item.id)" variant="danger" class="" type="submit">Delete</b-button>
-                            <b-button size="md"  @click="deleteDepartment(department_item.id)" variant="success" class="ml-2" type="submit">Edit</b-button>
+                            <b-button size="md" @click="deleteDepartment(department_item.id) " variant="danger" class="" type="submit">Delete</b-button>
+                            <b-button size="md"  @click="editDepartment(department_item.id)" variant="success" class="ml-2" type="submit">Edit</b-button>
                         </div>
                         <div class="department-actions" v-if="user_role.id == 2">
                             <b-button size="md"  :to="{ name: 'departmentSingle', params: { departmentId: department_item.id }}" variant="info" class="ml-2" type="submit">View</b-button>
@@ -59,9 +59,12 @@ export default {
       editDepartment(departmentID){
         alert(departmentID)
       },
-      deleteDepartment(departmentID){
-        alert(departmentID)
-      }
+      async deleteDepartment(id){
+        let result =  await this.$store.dispatch('departments/DELETE_DEPARTMENT', id)
+        await this.$store.dispatch('departments/GET_DEPARTMENTS')
+
+         
+      },
 
   },
   created(){
