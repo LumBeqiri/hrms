@@ -3,10 +3,11 @@
 
          <div class="container">
 
-           <b-row align-v="center">
+          <b-row align-v="center">
 
                     <div class="col-6 col-md-6 col-sm-6 col-lg-6 col-xl-6">
                         <div class="hrms_breadcrumb">
+                          
                             <b-breadcrumb>
                               <b-breadcrumb-item href="#home">
                               
@@ -30,9 +31,9 @@
                           </div>
                     </div> -->
                </b-row>
-         </div>
+         
 
-        <table class="hrms_table">
+          <table class="hrms_table">
                     <thead>
                         <tr>
                           <td>Name</td>
@@ -69,6 +70,9 @@
                       </tr>
                     </tbody>
           </table>
+          </div>
+
+
 
 
     </div>

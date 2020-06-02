@@ -30,15 +30,12 @@
                           </div>
                     </div> -->
                </b-row>
-         </div>
+         
 
        <table class="hrms_table">
                     <thead>
                         <tr>
                           <td>Department</td>
-                        
-
-                          <td></td>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,9 +48,10 @@
                       </tr>
                     </tbody>
           </table>
+          </div>
+    </div><!--page content ends here-->
 
-
-    </div>
+  
 </template>
 <script>
 import { globalMixings } from '@utils/global-mixin'
