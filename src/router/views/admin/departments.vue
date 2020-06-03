@@ -14,7 +14,6 @@
                   <li class="department_item" v-for="(department_item, index) in departmentList" :key="index">
                         <h5>{{department_item.name}}</h5>
                         <div class="department-actions" v-if="user_role.id == 1">
-                          <b-button size="md"  :to="{ name: 'departmentSingle', params: { departmentId: department_item.id }}" variant="info" class="ml-2" type="submit">View</b-button>
                             <b-button size="md" @click="deleteDepartment(department_item.id) " variant="danger" class="" type="submit">Delete</b-button>
                             <b-button size="md"  @click="editDepartment(department_item.id)" variant="success" class="ml-2" type="submit">Edit</b-button>
                         </div>
