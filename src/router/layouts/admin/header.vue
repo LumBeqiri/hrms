@@ -14,6 +14,10 @@
                             <b-nav-item :to="'/app/dashboard'">Dashboard</b-nav-item>
                             <b-nav-item :to="'/app/departments'">Departments</b-nav-item>
                             <b-nav-item :to="'/app/users'">Users</b-nav-item>
+                            <b-nav-item :to="'/app/positions'">Positions</b-nav-item>
+                            <b-nav-item :to="'/app/applicants'">Applicants</b-nav-item>
+
+
 
                         </b-navbar-nav>
 

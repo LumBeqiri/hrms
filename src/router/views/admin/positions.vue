@@ -8,10 +8,9 @@
                         <div class="hrms_breadcrumb">
                             <b-breadcrumb>
                               <b-breadcrumb-item href="#home">
-                               
                                 Dashboard
                               </b-breadcrumb-item>
-                              <b-breadcrumb-item active>Users</b-breadcrumb-item>
+                              <b-breadcrumb-item active>Positions</b-breadcrumb-item>
                             </b-breadcrumb>
 
                       </div>
@@ -22,20 +21,14 @@
                         <div class="hrms_actions text-right">
                               <ul>
                                 <li>
-                                    <b-button variant="primary" @click="openNewUserModal">Create user</b-button>
+                                    <b-button variant="primary" @click="openNewUserModal">Open Position</b-button>
                                 </li>
                               </ul>
                           </div>
                     </div>
                </b-row>
-                
-                
-                   
-                    
 
-
-
-             <template v-if="hrms_users_list.length == 0">
+             <template v-if="position_list.length == 0">
                 <div class="text-center mt-4 ml-4 mb-4 mr-4">
                        <b-spinner label="Spinning"></b-spinner>
                 </div>
@@ -47,31 +40,27 @@
                     <thead>
                         <tr>
                           <td>Name</td>
-                          <td>Surname</td>
                           <td>Department</td>
-                          <td>Role</td>
+                          <td>Open Positions</td>
                           <td>Operations</td>
                         </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(user_item, index) in hrms_users_list" :key="index">
+                      <tr v-for="(position, index) in position_list" :key="index">
                           <td>
-                            {{user_item.metadata.first_name | capitalizeLetter}}
+                            {{position.name | capitalizeLetter }}
                           </td>
                           <td>
-                             {{user_item.metadata.last_name | capitalizeLetter}}
+                             {{position.department.name | capitalizeLetter }}
                           </td>
                           <td>
-                             {{user_item.department.name | capitalizeLetter}}
+                             {{position.qty}}
                           </td>
-                          <td>
-                             {{user_item.role.name | capitalizeLetter}}
-                          </td>
+                        
                           <template v-if="user_role.id == 1">
                               <td class="table-actions">
-                                 <b-button size="md"  :to="{ name: 'usersSingle', params: { userId: user_item.id }}" variant="info" class="ml-2" type="submit">View</b-button>
-                                <b-button size="md" @click="deleteUser(user_item.id)" variant="danger" class="ml-2" type="submit">Delete</b-button>
-                                <b-button size="md"  @click="openEditUserModal(user_item.id)" variant="success" class="ml-2" type="submit">Edit</b-button>
+                                <b-button size="md" @click="deleteUser(position.id)" variant="danger" class="ml-2" type="submit">Delete</b-button>
+                                <b-button size="md"  @click="openEditUserModal(position.id)" variant="success" class="ml-2" type="submit">Edit</b-button>
                               </td>
                           </template>
                            <template v-if="user_role.id !== 1">
@@ -102,19 +91,19 @@ import EditUserModal from '@modals/editUserModal.vue'
 import { globalMixings } from '@utils/global-mixin'
 export default {
   mixins: [globalMixings],
-  name : 'UsersPage',
+  name : 'Positions',
   components:{
     'create-new-user-modal' : CreateUserModal,
     'edit-user-modal': EditUserModal
   },
   computed: {
-      hrms_users_list(){
-
-              return this.$store.getters['users/get_hrms_users']
+      position_list(){
+              console.log(this.$store.getters['positions/get_positions'])
+              return this.$store.getters['positions/get_positions']
       },
   },
   watch: {
-      hrms_users_list(newvalue){
+      position_list(newvalue){
               return newvalue
       },
   },
@@ -122,22 +111,17 @@ export default {
      return {}
   },
   methods:{
-      async get_hrms_users(){
-         let result =  await this.$store.dispatch('users/GET_HRMS_USERS')
+      async get_positions(){
+         let result =  await this.$store.dispatch('positions/GET_POSITIONS')
 
       },
-      async deleteUser(id){
-         let result =  await this.$store.dispatch('users/DELETE_USER', id)
-        await this.$store.dispatch('users/GET_HRMS_USERS')
+      async deletePosition(id){
+         let result =  await this.$store.dispatch('positions/DELETE_POSITION', id)
+         await this.$store.dispatch('positions/GET_POSITIONS')
 
          
       },
-      editDepartment(departmentID){
-        alert(departmentID)
-      },
-      deleteDepartment(departmentID){
-        alert(departmentID)
-      },
+   
       openNewUserModal(){
        this.$refs.CreateNewUserModal.toggleModal();
       },
@@ -148,7 +132,7 @@ export default {
 
   },
   created(){
-      this.get_hrms_users();
+      this.get_positions();
   },
   mounted(){},
 }

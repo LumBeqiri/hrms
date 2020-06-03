@@ -11,7 +11,7 @@
                                
                                 Dashboard
                               </b-breadcrumb-item>
-                              <b-breadcrumb-item active>Users</b-breadcrumb-item>
+                              <b-breadcrumb-item active>Applicants</b-breadcrumb-item>
                             </b-breadcrumb>
 
                       </div>
@@ -22,7 +22,7 @@
                         <div class="hrms_actions text-right">
                               <ul>
                                 <li>
-                                    <b-button variant="primary" @click="openNewUserModal">Create user</b-button>
+                                    <b-button variant="primary" @click="openNewUserModal">Register Applicant</b-button>
                                 </li>
                               </ul>
                           </div>
@@ -30,12 +30,12 @@
                </b-row>
                 
                 
-                   
+             
                     
 
 
 
-             <template v-if="hrms_users_list.length == 0">
+             <template v-if="applicants_list.length == 0">
                 <div class="text-center mt-4 ml-4 mb-4 mr-4">
                        <b-spinner label="Spinning"></b-spinner>
                 </div>
@@ -47,31 +47,36 @@
                     <thead>
                         <tr>
                           <td>Name</td>
-                          <td>Surname</td>
+                          <td>Last Name</td>
+                          <td>Email</td>
+                          <td>Position</td>
                           <td>Department</td>
-                          <td>Role</td>
                           <td>Operations</td>
                         </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(user_item, index) in hrms_users_list" :key="index">
+                      <tr v-for="(applicant, index) in applicants_list" :key="index">
                           <td>
-                            {{user_item.metadata.first_name | capitalizeLetter}}
+                            {{applicant.first_name | capitalizeLetter}}
                           </td>
                           <td>
-                             {{user_item.metadata.last_name | capitalizeLetter}}
+                             {{applicant.last_name | capitalizeLetter}}
                           </td>
                           <td>
-                             {{user_item.department.name | capitalizeLetter}}
+                             {{applicant.personal_email }}
                           </td>
                           <td>
-                             {{user_item.role.name | capitalizeLetter}}
+                             {{applicant.position.name | capitalizeLetter}}
                           </td>
+                          <td>
+                             {{applicant.position.department.name | capitalizeLetter}}
+                          </td>
+                        
                           <template v-if="user_role.id == 1">
                               <td class="table-actions">
-                                 <b-button size="md"  :to="{ name: 'usersSingle', params: { userId: user_item.id }}" variant="info" class="ml-2" type="submit">View</b-button>
-                                <b-button size="md" @click="deleteUser(user_item.id)" variant="danger" class="ml-2" type="submit">Delete</b-button>
-                                <b-button size="md"  @click="openEditUserModal(user_item.id)" variant="success" class="ml-2" type="submit">Edit</b-button>
+                                 <b-button size="md"  :to="{ name: 'applicantSingle', params: { userId: applicant.id }}" variant="info" class="ml-2" type="submit">View</b-button>
+                                <b-button size="md" @click="deleteUser(applicant.id)" variant="danger" class="ml-2" type="submit">Delete</b-button>
+                                <b-button size="md"  @click="openEditUserModal(applicant.id)" variant="success" class="ml-2" type="submit">Edit</b-button>
                               </td>
                           </template>
                            <template v-if="user_role.id !== 1">
@@ -102,19 +107,19 @@ import EditUserModal from '@modals/editUserModal.vue'
 import { globalMixings } from '@utils/global-mixin'
 export default {
   mixins: [globalMixings],
-  name : 'UsersPage',
+  name : 'Applicants',
   components:{
     'create-new-user-modal' : CreateUserModal,
     'edit-user-modal': EditUserModal
   },
   computed: {
-      hrms_users_list(){
-
-              return this.$store.getters['users/get_hrms_users']
+      applicants_list(){
+            
+              return this.$store.getters['applicants/get_applicants']
       },
   },
   watch: {
-      hrms_users_list(newvalue){
+      applicants_list(newvalue){
               return newvalue
       },
   },
@@ -122,13 +127,13 @@ export default {
      return {}
   },
   methods:{
-      async get_hrms_users(){
-         let result =  await this.$store.dispatch('users/GET_HRMS_USERS')
+      async get_applicants(){
+         let result =  await this.$store.dispatch('applicants/GET_APPLICANTS')
 
       },
       async deleteUser(id){
          let result =  await this.$store.dispatch('users/DELETE_USER', id)
-        await this.$store.dispatch('users/GET_HRMS_USERS')
+         await this.$store.dispatch('applicants/GET_APPLICANTS')
 
          
       },
@@ -148,7 +153,7 @@ export default {
 
   },
   created(){
-      this.get_hrms_users();
+      this.get_applicants();
   },
   mounted(){},
 }

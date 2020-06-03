@@ -9,6 +9,10 @@ const Departments = () => import(/* webpackChunkName: "AdminPageDepartments" */ 
 const DepartmentSingle = () => import(/* webpackChunkName: "DepartmentSingle" */ '@views/admin/departmentsSingle.vue');
 const Users = () => import(/* webpackChunkName: "Users" */ '@views/admin/users.vue');
 const UsersSingle = () => import(/* webpackChunkName: "Users" */ '@views/admin/usersSingle.vue');
+const Positions = () => import(/* webpackChunkName: "Positions" */ '@views/admin/positions.vue');
+const Applicants = () => import(/* webpackChunkName: "Positions" */ '@views/admin/applicants.vue');
+
+
 
 
 
@@ -95,6 +99,18 @@ export default [
         path: 'users/:userId',
         name: 'usersSingle',
         component: UsersSingle,
+      },
+      {
+
+        path: 'positions',
+        name: 'positions',
+        component: Positions,
+      },
+      {
+
+        path: 'applicants',
+        name: 'applicants',
+        component: Applicants,
       },
 
 
