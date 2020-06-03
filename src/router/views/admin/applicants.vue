@@ -74,7 +74,6 @@
                         
                           <template v-if="user_role.id == 1">
                               <td class="table-actions">
-                                 <b-button size="md"  :to="{ name: 'applicantSingle', params: { userId: applicant.id }}" variant="info" class="ml-2" type="submit">View</b-button>
                                 <b-button size="md" @click="deleteUser(applicant.id)" variant="danger" class="ml-2" type="submit">Delete</b-button>
                                 <b-button size="md"  @click="openEditUserModal(applicant.id)" variant="success" class="ml-2" type="submit">Edit</b-button>
                               </td>
