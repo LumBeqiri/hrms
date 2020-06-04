@@ -1,22 +1,7 @@
 const appConfig = require('./src/app.config')
 const fs = require("fs");
 module.exports = {
-  pwa: {
-    name: 'MSTR.TV',
-    themeColor: '#1F87FF',
-    msTileColor: '#fff',
-    appleMobileWebAppCapable: 'yes',
-    appleMobileWebAppStatusBarStyle: '#1F87FF',
-    workboxPluginMode: 'InjectManifest',
-    workboxOptions: {
-      swSrc: './src/sw.js',
-      swDest: 'service-worker.js',
-      exclude: [
-        /manifest\.json$/
-      ],
-    },
-  },
-
+ 
   // https://github.com/neutrinojs/webpack-chain/tree/v4#getting-started
   chainWebpack(config) {
     // We provide the app's title in Webpack's name field, so that

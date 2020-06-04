@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from '@/src/state/store'
 import './globals.js'
-import './registerServiceWorker'
+
 
 
 const app = new Vue({

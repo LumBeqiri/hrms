@@ -94,6 +94,12 @@ export default {
     singleUser(newvalue){
                 return newvalue
       },
+      $route: {
+          immediate: true,
+          handler(to, from) {
+              document.title = to.meta.title || 'User' ;
+          }
+      },
   },
   data(){
      return {}

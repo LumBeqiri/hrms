@@ -117,6 +117,12 @@ export default {
       hrms_users_list(newvalue){
               return newvalue
       },
+      $route: {
+          immediate: true,
+          handler(to, from) {
+              document.title = to.meta.title || 'Users';
+          }
+      },
   },
   data(){
      return {}

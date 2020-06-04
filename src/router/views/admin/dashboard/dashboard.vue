@@ -6,6 +6,10 @@
 <script>
 export default {
   name : 'Dashboard',
+  metaInfo: {
+    title: 'Dashboard',
+    titleTemplate: '%s | vue-meta Example App'
+  },
   components:{},
   computed: {},
   watch: {},

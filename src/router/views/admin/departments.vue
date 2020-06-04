@@ -35,6 +35,7 @@ import { globalMixings } from '@utils/global-mixin'
 export default {
   mixins: [globalMixings],
   name : 'DpeartmentPage',
+  
   components:{},
   computed: {
       departmentList(){
@@ -46,6 +47,14 @@ export default {
       departmentList(newvalue){
               return newvalue
       },
+  
+      $route: {
+          immediate: true,
+          handler(to, from) {
+              document.title = to.meta.title || 'Departments';
+          }
+      },
+    
   },
   data(){
      return {}
