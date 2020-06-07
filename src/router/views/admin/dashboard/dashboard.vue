@@ -12,7 +12,14 @@ export default {
   },
   components:{},
   computed: {},
-  watch: {},
+  watch: {
+    $route: {
+          immediate: true,
+          handler(to, from) {
+              document.title = to.meta.title || 'Dashboard';
+          }
+      },
+  },
   data(){
      return {}
   },
