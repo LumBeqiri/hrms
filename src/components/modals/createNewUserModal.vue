@@ -5,7 +5,7 @@
     header-class="msrt-modal-title without-icon primary"
     body-class="modal-body-desc modal-with-form"
     footer-class="modal_actions"
-    @show="modalIsVisible"
+   
     @hide="ChangeToDefault"
     ref="CreateNewUserModal"
     title="Using Component Methods"
@@ -372,8 +372,8 @@ export default {
 
 
     async CreateUser() {
-    //   let validationSucceded = await this.$validate()
-    //   console.log(validationSucceded)
+      let validationSucceded = await this.$validate()
+      console.log(validationSucceded)
     
         let data = {
                 "first_name": this.first_name,

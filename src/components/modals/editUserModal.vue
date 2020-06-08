@@ -183,7 +183,7 @@
                     <div class="form__group" >
                         <label>Email</label>
                             <input
-                            type="text"
+                            type="email"
                             v-model="email"
                             placeholder="Email"
                             class="hrms_input"
@@ -193,7 +193,7 @@
                                 <template v-if="validation.allErrors('email') == 'Required.'">
                                     This field is required
                                  </template>
-                                </p>        
+                            </p>        
                     </div>
                 </div>
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -319,9 +319,6 @@ export default {
                 role_id: '',
                 password: '',
                 confirm_password:''
-
-               
-
     }
   },
   validators: {
@@ -355,9 +352,9 @@ export default {
     role_id: function(value) {
       return this.$Validator.value(value).required()
     },
-    password: function(value) {
-      return this.$Validator.value(value).required();
-    },
+    // password: function(value) {
+    //   return this.$Validator.value(value).required();
+    // },
   },
   
   
@@ -369,21 +366,7 @@ export default {
       },
       async get_user(id){
         await this.$store.dispatch('users/GET_HRMS_USER',id)
-      //   let data = this.$store.getters['users/get_hrms_user']
-      //  console.log("useri")
-      //  console.log(data)
-      //   this.id = data.id,
-      //   this.first_name = data.metadata.first_name,
-      //   this.last_name = data.metadata.last_name,
-      //   this.base_salary = data.metadata.base_salary,
-      //   this.street = data.metadata.street,
-      //   this.city = data.metadata.city,
-      //   this.country = data.metadata.country,
-      //   this.email = data.email,
-      //   this.department_id = data.department.id,
-      //   this.role_id = data.role.id,
-      //   this.password = ''
-      //   this.confirm_password = ''
+
       },
 
       async get_roles(){
@@ -415,8 +398,8 @@ export default {
 
 
     async EditUser() {
-    //   let validationSucceded = await this.$validate()
-    //   console.log(validationSucceded)
+    let validationSucceded = await this.$validate()
+    //console.log(validationSucceded)
     
         let data = {
                 "id" : this.id,
@@ -455,9 +438,6 @@ export default {
       this.get_departments();
       this.get_user();
       this.get_roles();
-      
-
-      
 
   },
 
