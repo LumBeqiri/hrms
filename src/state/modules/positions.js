@@ -25,6 +25,26 @@ import {
   
   const actions = {
   
+    CREATE_POSITION({}, positionDetails) {
+   
+      let current_api = API_CONFIG.API_ENDPOINT + 'positions'
+      let data = { 
+          ...positionDetails
+      }
+      return new Promise((resolve, reject) => {
+        API_CONFIG.SITE_AXIOS
+          .post(current_api, data , {
+            cache: false,
+            retryTimes: 2
+          })
+          .then(response => {
+             resolve(true);
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    },
   
   
     GET_POSITIONS({commit}) {
@@ -48,7 +68,24 @@ import {
       });
     },
   
+    DELETE_POSITION({}, id) {
+  
+      let current_api = API_CONFIG.API_ENDPOINT + 'positions/'+ id
 
+      return new Promise((resolve, reject) => {
+        API_CONFIG.SITE_AXIOS
+          .delete(current_api , {
+            cache: false,
+            retryTimes: 2
+          })
+          .then(response => {
+             resolve(true);
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    },
   
 
   

@@ -21,7 +21,7 @@
                         <div class="hrms_actions text-right">
                               <ul>
                                 <li>
-                                    <b-button variant="primary" @click="openNewUserModal">Open Position</b-button>
+                                    <b-button variant="primary" @click="openNewPositionModal">Open Position</b-button>
                                 </li>
                               </ul>
                           </div>
@@ -59,8 +59,8 @@
                         
                           <template v-if="user_role.id == 1">
                               <td class="table-actions">
-                                <b-button size="md" @click="deleteUser(position.id)" variant="danger" class="ml-2" type="submit">Delete</b-button>
-                                <b-button size="md"  @click="openEditUserModal(position.id)" variant="success" class="ml-2" type="submit">Edit</b-button>
+                                <b-button size="md" @click="deletePosition(position.id)" variant="danger" class="ml-2" type="submit">Delete</b-button>
+                                <b-button size="md"  @click="openEditPositionModal(position.id)" variant="success" class="ml-2" type="submit">Edit</b-button>
                               </td>
                           </template>
                            <template v-if="user_role.id !== 1">
@@ -77,28 +77,28 @@
 
       </div>
 
-      <create-new-user-modal ref="CreateNewUserModal"/>
-      <edit-user-modal ref="EditUserModal"/>
+      <create-new-position-modal ref="CreateNewPositionModal"/>
+      <edit-position-modal ref="editPositionModal"/>
 
 
     </div>
 
 </template>
 <script>
-import CreateUserModal from '@modals/createNewUserModal.vue'
-import EditUserModal from '@modals/editUserModal.vue'
+import CreateNewPositionModal from '@modals/createNewPositionModal.vue'
+import EditPositionModal from '@modals/editPositionModal.vue'
 
 import { globalMixings } from '@utils/global-mixin'
 export default {
   mixins: [globalMixings],
   name : 'Positions',
   components:{
-    'create-new-user-modal' : CreateUserModal,
-    'edit-user-modal': EditUserModal
+    'create-new-position-modal' : CreateNewPositionModal,
+    'edit-position-modal': EditPositionModal
   },
   computed: {
       position_list(){
-              console.log(this.$store.getters['positions/get_positions'])
+             // console.log(this.$store.getters['positions/get_positions'])
               return this.$store.getters['positions/get_positions']
       },
   },
@@ -128,12 +128,11 @@ export default {
          
       },
    
-      openNewUserModal(){
-       this.$refs.CreateNewUserModal.toggleModal();
+      openNewPositionModal(){
+       this.$refs.CreateNewPositionModal.toggleModal();
       },
-      openEditUserModal(id){
-       
-        this.$refs.EditUserModal.toggleModal(id);
+      openEditPositionModal(id){
+        this.$refs.EditPositionModal.toggleModal(id);
       }
 
   },

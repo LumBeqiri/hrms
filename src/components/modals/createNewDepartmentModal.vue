@@ -143,7 +143,7 @@ export default {
 
 
     async CreateDepartment() {
-      console.log(validationSucceded)
+      //console.log(validationSucceded)
     
       let data = {
               "name": this.name,
@@ -154,7 +154,7 @@ export default {
       //console.log(data);
       if(validationSucceded){
         let result = await this.$store.dispatch('departments/CREATE_DEPARTMENT', data)
-        await this.$store.dispatch('departments/GET_DEPARTMENTS')
+        
         if(result){
               await this.$store.dispatch('departments/GET_DEPARTMENTS')
               this.hideModal()

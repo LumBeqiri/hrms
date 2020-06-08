@@ -5,9 +5,9 @@
     header-class="msrt-modal-title without-icon primary"
     body-class="modal-body-desc modal-with-form"
     footer-class="modal_actions"
-   
+
     @hide="ChangeToDefault"
-    ref="CreateNewPositionModal"
+    ref="EditPositionModal"
     title="Using Component Methods"
   >
     <template v-slot:modal-header="{ close }">
@@ -18,7 +18,7 @@
 
       <div class="title">
          
-         <p>Open a new Position  </p>
+         <p>Edit Department</p>
         <!-- MODAL CLOSE ICON -->
         <div class="modal-close-action" @click="hideModal">
                 
@@ -95,12 +95,12 @@
       </div>
       <div class="button_item">
             <b-button
-            @click="CreatePosition()"
+            @click="EditPosition()"
             variant="primary"
             type="submit"
             id="apply-filter-masters"
             >
-            <template v-if="!buttonSubmitting">Open new Position</template>
+            <template v-if="!buttonSubmitting">Save</template>
                 <template v-else>
                     <b-spinner small variant="white" label="Spinning"></b-spinner>
                 </template>
@@ -111,44 +111,48 @@
 </template>
 
 <script>
-export default {
+import { globalMixings } from '@utils/global-mixin'
 
-  name: 'CreateNewPositionModal',
+export default {
+  mixins: [globalMixings],
+
+  name: 'EditPositionModal',
   components: {
     
   },
   computed: {
    departmentList(){
-      return this.$store.getters['departments/get_department_details']
-    }
-  
+
+              return this.$store.getters['departments/get_department_details']
+      },
+
   },
 
   watch: {
+    singleUser(newvalue){
+                return newvalue
+      },
     departmentList(newvalue){
               return newvalue
-      },
+      }
+      
+
   },
 
-
+  
    data() {
         return {
-            buttonSubmitting: false,
-            name : '',
-            department_id: '',
-            qty: ''
+                buttonSubmitting: false,
+                id : '',
+                name : ''
+                
     }
   },
   validators: {
     name: function(value) {
       return this.$Validator.value(value).maxLength(25).required()
     },
-    department_id: function(value) {
-      return this.$Validator.value(value).required()
-    },
-    qty: function(value) {
-      return this.$Validator.value(value).maxLength(7).integer().required()
-    },
+
   },
   
   
@@ -158,47 +162,32 @@ export default {
          let result =  await this.$store.dispatch('departments/GET_DEPARTMENTS')
         
       },
-   
+
     hideModal() {
-      this.$refs['CreateNewPositionModal'].hide()
+      this.$refs['EditPositionModal'].hide()
     },
-    toggleModal() {
-      //console.log()
-      this.$refs['CreateNewPositionModal'].show()
-    },
-
-    /**
-     * * EVENT FIRED BEFORE MODAL BECOMES VISIBLE
-     */
-    modalIsVisible() {
-     
+    toggleModal(id) {
+      this.$refs['EditPositionModal'].show()
+      this.id = id;
     },
 
-
-    async CreatePosition() {
-      let validationSucceded = await this.$validate()
-      console.log(validationSucceded)
+    async EditPosition() {
+    let validationSucceded = await this.$validate()
+    //console.log(validationSucceded)
     
-      let data = {
-              "name": this.name,
-              "department_id" : this.department_id,
-              "qty": this.qty
-          }
-
-      if(validationSucceded){
-            let result = await this.$store.dispatch('positions/CREATE_POSITION', data)
-            this.name = "",
-            this.department_id = "",
-            this.qty = ""
-
-            if(result){
-                  await this.$store.dispatch('positions/GET_POSITIONS')
-                  this.hideModal()
-            }else{
-                alert('Please confirm all fields , or there is a problem with api ')
+        let data = {
+                "id" : this.id,
+                "name" : this.name
             }
 
-          }else{alert("Fill in the field")}
+        let result = await this.$store.dispatch('departments/EDIT_DEPARTMENT', data)
+
+        if(result){
+                await this.$store.dispatch('departments/GET_DEPARTMENTS')
+                this.hideModal()
+        }else{
+            alert('Please confirm all fields , or there is a problem with api ')
+        }
     },
     /**
      * * EVENT FIRED WHEN MODAL CLOSES
@@ -209,8 +198,10 @@ export default {
   },
    created(){
       this.get_departments();
-      
+ 
+
   },
 
 }
+
 </script>
