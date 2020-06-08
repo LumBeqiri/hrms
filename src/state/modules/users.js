@@ -75,7 +75,7 @@ const actions = {
   },
 
 
-  //get single user from api
+  //create user using api
   CREATE_USER({}, user_details) {
    
     let current_api = API_CONFIG.API_ENDPOINT + 'users'

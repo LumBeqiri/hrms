@@ -15,17 +15,12 @@
                 <b-nav-item href="#">Home</b-nav-item>
                 <b-nav-item href="#">About</b-nav-item>
                 <b-nav-item href="#">Categories</b-nav-item>
-                <b-nav-item href="#">Courses</b-nav-item>
+                
 
               </b-navbar-nav>
 
               <!-- Right aligned nav items -->
               <b-navbar-nav class="ml-auto">
-
-
-
-
-
 
                 <template v-if="!isLoggedin">
                      <b-button size="md" :to="'/signup'" variant="primary" class="" type="submit">Signup</b-button>

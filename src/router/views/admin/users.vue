@@ -138,12 +138,7 @@ export default {
 
          
       },
-      editDepartment(departmentID){
-        alert(departmentID)
-      },
-      deleteDepartment(departmentID){
-        alert(departmentID)
-      },
+
       openNewUserModal(){
        this.$refs.CreateNewUserModal.toggleModal();
       },

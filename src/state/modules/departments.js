@@ -30,6 +30,26 @@ const mutations = {
 const actions = {
 
 
+  CREATE_DEPARTMENT({}, departmentDetails) {
+   
+    let current_api = API_CONFIG.API_ENDPOINT + 'departments'
+    let data = { 
+        ...departmentDetails
+    }
+    return new Promise((resolve, reject) => {
+      API_CONFIG.SITE_AXIOS
+        .post(current_api, data , {
+          cache: false,
+          retryTimes: 2
+        })
+        .then(response => {
+           resolve(true);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  },
 
   GET_DEPARTMENTS({commit}) {
     let current_api = API_CONFIG.API_ENDPOINT + 'departments'
@@ -74,6 +94,32 @@ const actions = {
           });
       });
     },
+
+    EDIT_DEPARTMENT({}, details) {
+      let data = { 
+        ...details
+    }
+    
+      let current_api = API_CONFIG.API_ENDPOINT + 'departments/'+ data.id
+    //console.log(current_api)
+     
+  
+      return new Promise((resolve, reject) => {
+        API_CONFIG.SITE_AXIOS
+          .patch(current_api, data , {
+            cache: false,
+            retryTimes: 2
+          })
+          .then(response => {
+             resolve(true);
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    },
+
+
     DELETE_DEPARTMENT({}, id) {
   
       let current_api = API_CONFIG.API_ENDPOINT + 'departments/'+ id
