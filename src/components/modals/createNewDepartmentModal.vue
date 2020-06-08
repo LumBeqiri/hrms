@@ -7,7 +7,7 @@
     footer-class="modal_actions"
    
     @hide="ChangeToDefault"
-    ref="CreateNewUserModal"
+    ref="CreateNewDepartmentModal"
     title="Using Component Methods"
   >
     <template v-slot:modal-header="{ close }">
@@ -76,7 +76,7 @@
 <script>
 export default {
 
-  name: 'CreateNewUserModal',
+  name: 'CreateNewDepartmentModal',
   components: {
     
   },
@@ -128,10 +128,10 @@ export default {
       },
    
     hideModal() {
-      this.$refs['CreateNewUserModal'].hide()
+      this.$refs['CreateNewDepartmentModal'].hide()
     },
     toggleModal() {
-      this.$refs['CreateNewUserModal'].show()
+      this.$refs['CreateNewDepartmentModal'].show()
     },
 
     /**
@@ -143,23 +143,29 @@ export default {
 
 
     async CreateDepartment() {
-      let validationSucceded = await this.$validate()
-      //console.log(validationSucceded)
+      console.log(validationSucceded)
     
-        let data = {
-                "name": this.name,
-                
-            }
+      let data = {
+              "name": this.name,
+          }
+      let validationSucceded = await this.$validate()
+        
 
-        //console.log(data);
+      //console.log(data);
+      if(validationSucceded){
         let result = await this.$store.dispatch('departments/CREATE_DEPARTMENT', data)
+        await this.$store.dispatch('departments/GET_DEPARTMENTS')
         if(result){
-                await this.$store.dispatch('departments/GET_DEPARTMENTS')
-                this.hideModal()
-                this.name = '' // after adding a new department make the input field
+              await this.$store.dispatch('departments/GET_DEPARTMENTS')
+              this.hideModal()
+              this.name = '' // after adding a new department make the input field
         }else{
             alert('Please confirm all fields , or there is a problem with api ')
         }
+
+      }else{alert("Fill in the field")}
+
+      
     },
     /**
      * * EVENT FIRED WHEN MODAL CLOSES

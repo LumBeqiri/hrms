@@ -52,8 +52,8 @@
                 
                   <template v-if="user_role.id == 1">
                       <td class="table-actions">
-                        <b-button size="md" @click="deleteDepartment(department_item.id)" variant="danger" class="ml-2" type="submit">Delete</b-button>
                         <b-button size="md"  @click="openEditDepartmentModal(department_item.id, department_item.name)" variant="success" class="ml-2" type="submit">Edit</b-button>
+                        <b-button size="md" @click="deleteDepartment(department_item.id)" variant="danger" class="ml-2" type="submit">Delete</b-button>
                       </td>
                   </template>
                     <template v-if="user_role.id !== 1">

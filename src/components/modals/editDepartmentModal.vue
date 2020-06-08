@@ -42,9 +42,9 @@
                         required
                         > 
                         <p v-show="validation.hasError('name')" class="error_message">
-                            <template v-if="validation.allErrors('name') == 'Required.'">
-                                This field is required
-                              </template>
+                          <template v-if="validation.allErrors('name') == 'Required.'">
+                              This field is required
+                          </template>
                         </p>        
                 </div>
             </div>
