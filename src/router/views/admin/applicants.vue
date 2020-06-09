@@ -94,7 +94,7 @@
 </template>
 <script>
 import CreateApplicantModal from '@modals/createNewApplicantModal.vue'
-//import EditApplicantModal from '@modals/editApplicantModal.vue'
+import EditApplicantModal from '@modals/editApplicantModal.vue'
 
 import { globalMixings } from '@utils/global-mixin'
 export default {
@@ -102,7 +102,7 @@ export default {
   name : 'Applicants',
   components:{
     'create-new-applicant-modal' : CreateApplicantModal,
-    //'edit-applicant-modal': EditApplicantModal
+    'edit-applicant-modal': EditApplicantModal
   },
   computed: {
       applicants_list(){

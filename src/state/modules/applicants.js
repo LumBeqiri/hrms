@@ -97,6 +97,31 @@ const actions = {
    },
 
 
+   EDIT_APPLICANT({}, applicant_details) {
+    let data = { 
+      ...applicant_details
+  }
+  
+    let current_api = API_CONFIG.API_ENDPOINT + 'applicants/'+ data.id
+    //console.log(current_api)
+   
+
+    return new Promise((resolve, reject) => {
+      API_CONFIG.SITE_AXIOS
+        .patch(current_api, data , {
+          cache: false,
+          retryTimes: 2
+        })
+        .then(response => {
+           resolve(true);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  },
+
+
   DELETE_APPLICANT({}, id) {
   
     let current_api = API_CONFIG.API_ENDPOINT + 'applicants/'+ id
