@@ -22,19 +22,12 @@
                         <div class="hrms_actions text-right">
                               <ul>
                                 <li>
-                                    <b-button variant="primary" @click="openNewUserModal">Register Applicant</b-button>
+                                    <b-button variant="primary" @click="openNewApplicantModal">Register Applicant</b-button>
                                 </li>
                               </ul>
                           </div>
                     </div>
                </b-row>
-                
-                
-             
-                    
-
-
-
              <template v-if="applicants_list.length == 0">
                 <div class="text-center mt-4 ml-4 mb-4 mr-4">
                        <b-spinner label="Spinning"></b-spinner>
@@ -74,8 +67,8 @@
                         
                           <template v-if="user_role.id == 1">
                               <td class="table-actions">
-                                <b-button size="md" @click="deleteUser(applicant.id)" variant="danger" class="ml-2" type="submit">Delete</b-button>
-                                <b-button size="md"  @click="openEditUserModal(applicant.id)" variant="success" class="ml-2" type="submit">Edit</b-button>
+                                <b-button size="md" @click="deleteApplicant(applicant.id)" variant="danger" class="ml-2" type="submit">Delete</b-button>
+                                <b-button size="md"  @click="openEditApplicantModal(applicant.id)" variant="success" class="ml-2" type="submit">Edit</b-button>
                               </td>
                           </template>
                            <template v-if="user_role.id !== 1">
@@ -92,34 +85,39 @@
 
       </div>
 
-      <create-new-user-modal ref="CreateNewUserModal"/>
-      <edit-user-modal ref="EditUserModal"/>
+      <create-new-applicant-modal ref="CreateApplicantModal"/>
+      <edit-applicant-modal ref="EditApplicantModal"/>
 
 
     </div>
 
 </template>
 <script>
-import CreateUserModal from '@modals/createNewUserModal.vue'
-import EditUserModal from '@modals/editUserModal.vue'
+import CreateApplicantModal from '@modals/createNewApplicantModal.vue'
+//import EditApplicantModal from '@modals/editApplicantModal.vue'
 
 import { globalMixings } from '@utils/global-mixin'
 export default {
   mixins: [globalMixings],
   name : 'Applicants',
   components:{
-    'create-new-user-modal' : CreateUserModal,
-    'edit-user-modal': EditUserModal
+    'create-new-applicant-modal' : CreateApplicantModal,
+    //'edit-applicant-modal': EditApplicantModal
   },
   computed: {
       applicants_list(){
-            
               return this.$store.getters['applicants/get_applicants']
       },
   },
   watch: {
       applicants_list(newvalue){
               return newvalue
+      },
+      $route: {
+          immediate: true,
+          handler(to, from) {
+              document.title = to.meta.title || 'Applicants';
+          }
       },
   },
   data(){
@@ -130,24 +128,17 @@ export default {
          let result =  await this.$store.dispatch('applicants/GET_APPLICANTS')
 
       },
-      async deleteUser(id){
-         let result =  await this.$store.dispatch('users/DELETE_USER', id)
+      async deleteApplicant(id){
+         let result =  await this.$store.dispatch('applicants/DELETE_APPLICANT', id)
          await this.$store.dispatch('applicants/GET_APPLICANTS')
-
-         
       },
-      editDepartment(departmentID){
-        alert(departmentID)
+      
+      openNewApplicantModal(){
+       this.$refs.CreateApplicantModal.toggleModal();
       },
-      deleteDepartment(departmentID){
-        alert(departmentID)
-      },
-      openNewUserModal(){
-       this.$refs.CreateNewUserModal.toggleModal();
-      },
-      openEditUserModal(id){
+      openEditApplicantModal(id){
        
-        this.$refs.EditUserModal.toggleModal(id);
+        this.$refs.EditApplicantModal.toggleModal(id);
       }
 
   },

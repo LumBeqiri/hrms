@@ -22,6 +22,7 @@ import {
     },
     RESET(state) {
       state.positions = []
+      state.position = []
    
     }
   };
@@ -51,7 +52,6 @@ import {
     },
 
     GET_POSITION({commit}, position_id) {
-     // alert('singlepos')
       if(position_id == '' || position_id == null){
         return
       }

@@ -375,7 +375,7 @@ export default {
       let validationSucceded = await this.$validate()
       console.log(validationSucceded)
     
-        let data = {
+      let data = {
                 "first_name": this.first_name,
                 "last_name" : this.last_name,
                 "base_salary": this.base_salary,
@@ -389,7 +389,7 @@ export default {
                 "confirm_password": this.confirm_password
             }
 
-console.log(data);
+     // console.log(data);
         let result = await this.$store.dispatch('users/CREATE_USER', data)
         if(result){
                 await this.$store.dispatch('users/GET_HRMS_USERS')
@@ -398,9 +398,7 @@ console.log(data);
             alert('Please confirm all fields , or there is a problem with api ')
         }
     },
-    /**
-     * * EVENT FIRED WHEN MODAL CLOSES
-     */
+
     ChangeToDefault() {
       this.validation.reset()
     },

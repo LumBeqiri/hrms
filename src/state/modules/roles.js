@@ -37,8 +37,8 @@ import {
             retryTimes: 2
           })
           .then(response => {
-            console.log(response);
-            commit('SET_ROLES', response.data); // Set user is loggedin
+           // console.log(response);
+            commit('SET_ROLES', response.data); 
             resolve(true);
           })
           .catch(error => {

@@ -17,7 +17,7 @@
       </div>
 
       <div class="title">
-         <p>Edit Department</p>
+         <p>Edit Position</p>
 
         <!-- MODAL CLOSE ICON -->
         <div class="modal-close-action" @click="hideModal">
