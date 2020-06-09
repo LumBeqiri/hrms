@@ -17,8 +17,8 @@
       </div>
 
       <div class="title">
-         
          <p>Edit Department</p>
+
         <!-- MODAL CLOSE ICON -->
         <div class="modal-close-action" @click="hideModal">
                 
@@ -125,16 +125,25 @@ export default {
 
               return this.$store.getters['departments/get_department_details']
       },
+    singlePosition(){
+      let data  =  this.$store.getters['positions/get_position']
+      this.id = data.id
+      this.name = data.name
+      this.qty = data.qty
+      this.department_id =data.department_id
+      return data
+    }
 
   },
 
   watch: {
-    singleUser(newvalue){
-                return newvalue
-      },
+   
     departmentList(newvalue){
               return newvalue
-      }
+      },
+    singlePosition(newvalue){
+      return newvalue
+    }
       
 
   },
@@ -144,7 +153,9 @@ export default {
         return {
                 buttonSubmitting: false,
                 id : '',
-                name : ''
+                name : '',
+                qty: '',
+                department_id: ''
                 
     }
   },
@@ -152,52 +163,71 @@ export default {
     name: function(value) {
       return this.$Validator.value(value).maxLength(25).required()
     },
-
+    department_id: function(value) {
+      return this.$Validator.value(value).required()
+    },
+    qty: function(value) {
+      return this.$Validator.value(value).maxLength(7).integer().required()
+    },
   },
   
   
   methods: {
 
-      async get_departments(){
-         let result =  await this.$store.dispatch('departments/GET_DEPARTMENTS')
-        
+    async get_departments(){
+        let result =  await this.$store.dispatch('departments/GET_DEPARTMENTS')
+    },
+
+     async getPosition(id){
+        // console.log('id e position = ' + this.id)
+         let result =  await this.$store.dispatch('positions/GET_POSITION', id)
       },
+   
+
 
     hideModal() {
       this.$refs['EditPositionModal'].hide()
     },
+
     toggleModal(id) {
       this.$refs['EditPositionModal'].show()
       this.id = id;
+      this.getPosition(id);
     },
+
 
     async EditPosition() {
-    let validationSucceded = await this.$validate()
-    //console.log(validationSucceded)
+      let validationSucceded = await this.$validate()
     
-        let data = {
-                "id" : this.id,
-                "name" : this.name
+      let data = {
+              "id" : this.id,
+              "name" : this.name,
+              "qty" : this.qty,
+              "department_id" : this.department_id
+          }
+
+          if(validationSucceded){
+            let result = await this.$store.dispatch('positions/EDIT_POSITION', data)
+        
+
+            if(result){
+                  await this.$store.dispatch('positions/GET_POSITIONS')
+                  this.hideModal()
+            }else{
+                alert('Please confirm all fields , or there is a problem with api ')
             }
 
-        let result = await this.$store.dispatch('departments/EDIT_DEPARTMENT', data)
+          }else{alert("Fill in the field")}
 
-        if(result){
-                await this.$store.dispatch('departments/GET_DEPARTMENTS')
-                this.hideModal()
-        }else{
-            alert('Please confirm all fields , or there is a problem with api ')
-        }
     },
-    /**
-     * * EVENT FIRED WHEN MODAL CLOSES
-     */
+ 
     ChangeToDefault() {
       this.validation.reset()
     },
   },
    created(){
       this.get_departments();
+      this.getPosition();
  
 
   },

@@ -6,7 +6,7 @@ import {
 
 const state = {
   hrms_users: [],
-  hrms_user: []
+
 
 
 };
@@ -103,7 +103,7 @@ const actions = {
   }
   
     let current_api = API_CONFIG.API_ENDPOINT + 'users/'+ data.id
-  console.log(current_api)
+    //console.log(current_api)
    
 
     return new Promise((resolve, reject) => {

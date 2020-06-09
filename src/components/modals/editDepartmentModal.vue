@@ -135,31 +135,24 @@ export default {
       this.id = id;
     },
 
-    /**
-     * * EVENT FIRED BEFORE MODAL BECOMES VISIBLE
-     */
-    //modalIsVisible() {
-     
-    //}
-
 
     async EditDepartment() {
-    let validationSucceded = await this.$validate()
-    //console.log(validationSucceded)
-    
-        let data = {
-                "id" : this.id,
-                "name" : this.name
-            }
+      let validationSucceded = await this.$validate()
+      //console.log(validationSucceded)
+      
+          let data = {
+                  "id" : this.id,
+                  "name" : this.name
+              }
 
-        let result = await this.$store.dispatch('departments/EDIT_DEPARTMENT', data)
+          let result = await this.$store.dispatch('departments/EDIT_DEPARTMENT', data)
 
-        if(result){
-                await this.$store.dispatch('departments/GET_DEPARTMENTS')
-                this.hideModal()
-        }else{
-            alert('Please confirm all fields , or there is a problem with api ')
-        }
+          if(result){
+                  await this.$store.dispatch('departments/GET_DEPARTMENTS')
+                  this.hideModal()
+          }else{
+              alert('Please confirm all fields , or there is a problem with api ')
+          }
     },
     /**
      * * EVENT FIRED WHEN MODAL CLOSES

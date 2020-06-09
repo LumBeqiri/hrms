@@ -267,8 +267,8 @@ export default {
 
       singleUser(){
         let data  =  this.$store.getters['users/get_hrms_user']
-       console.log("useri")
-       console.log(data)
+       //console.log("useri")
+       //console.log(data)
         this.id = data.id,
         this.first_name = data.metadata.first_name,
         this.last_name = data.metadata.last_name,

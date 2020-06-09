@@ -78,7 +78,7 @@
       </div>
 
       <create-new-position-modal ref="CreateNewPositionModal"/>
-      <edit-position-modal ref="editPositionModal"/>
+      <edit-position-modal ref="EditPositionModal"/>
 
 
     </div>
@@ -101,6 +101,9 @@ export default {
              // console.log(this.$store.getters['positions/get_positions'])
               return this.$store.getters['positions/get_positions']
       },
+      single_position(){
+
+      }
   },
   watch: {
       position_list(newvalue){
@@ -124,10 +127,9 @@ export default {
       async deletePosition(id){
          let result =  await this.$store.dispatch('positions/DELETE_POSITION', id)
          await this.$store.dispatch('positions/GET_POSITIONS')
-
-         
       },
-   
+
+     
       openNewPositionModal(){
        this.$refs.CreateNewPositionModal.toggleModal();
       },
