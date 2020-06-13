@@ -125,8 +125,12 @@ export default {
 
       },
       async deletePosition(id){
+        var result = confirm("Want to delete?");
+        if (result) {
          let result =  await this.$store.dispatch('positions/DELETE_POSITION', id)
          await this.$store.dispatch('positions/GET_POSITIONS')
+        }
+         
       },
 
      

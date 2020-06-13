@@ -119,8 +119,12 @@ export default {
         alert(departmentID)
       },
       async deleteDepartment(id){
-        let result =  await this.$store.dispatch('departments/DELETE_DEPARTMENT', id)
-        await this.$store.dispatch('departments/GET_DEPARTMENTS')
+        var result = confirm("Want to delete?");
+        if (result) {
+            let result =  await this.$store.dispatch('departments/DELETE_DEPARTMENT', id)
+            await this.$store.dispatch('departments/GET_DEPARTMENTS')
+        }
+        
       },
 
        openNewDepartmentModal(){

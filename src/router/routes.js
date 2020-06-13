@@ -11,6 +11,8 @@ const Users = () => import(/* webpackChunkName: "Users" */ '@views/admin/users.v
 const UsersSingle = () => import(/* webpackChunkName: "Users" */ '@views/admin/usersSingle.vue');
 const Positions = () => import(/* webpackChunkName: "Positions" */ '@views/admin/positions.vue');
 const Applicants = () => import(/* webpackChunkName: "Positions" */ '@views/admin/applicants.vue');
+const Recruitments = () => import(/* webpackChunkName: "Positions" */ '@views/admin/recruitments.vue');
+
 
 
 
@@ -112,6 +114,13 @@ export default [
         name: 'applicants',
         component: Applicants,
       },
+      {
+
+        path: 'recruitments',
+        name: 'recruitments',
+        component: Recruitments,
+      },
+
 
 
 

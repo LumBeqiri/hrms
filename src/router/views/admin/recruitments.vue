@@ -8,10 +8,9 @@
                         <div class="hrms_breadcrumb">
                             <b-breadcrumb>
                               <b-breadcrumb-item href="#home">
-                               
                                 Dashboard
                               </b-breadcrumb-item>
-                              <b-breadcrumb-item active>Users</b-breadcrumb-item>
+                              <b-breadcrumb-item active>Recruitments</b-breadcrumb-item>
                             </b-breadcrumb>
 
                       </div>
@@ -22,7 +21,7 @@
                         <div class="hrms_actions text-right">
                               <ul>
                                 <li>
-                                    <b-button variant="primary" @click="openNewUserModal">Create user</b-button>
+                                    <b-button variant="primary" @click="openNewUserModal">Add to Recruitment</b-button>
                                 </li>
                               </ul>
                           </div>
@@ -31,7 +30,7 @@
                 
 
 
-             <template v-if="hrms_users_list.length == 0">
+             <template v-if="recruitments_list.length == 0">
                 <div class="text-center mt-4 ml-4 mb-4 mr-4">
                        <b-spinner label="Spinning"></b-spinner>
                 </div>
@@ -44,8 +43,9 @@
                         <tr>
                           <td>Name</td>
                           <td>Surname</td>
-                          <td>Department</td>
-                          <td>Role</td>
+                          <td>Status</td>
+                          <td>Notes</td>
+                          <td>Position</td>
                           <td>Operations</td>
                         </tr>
                     </thead>
@@ -98,25 +98,24 @@ import EditUserModal from '@modals/editUserModal.vue'
 import { globalMixings } from '@utils/global-mixin'
 export default {
   mixins: [globalMixings],
-  name : 'UsersPage',
+  name : 'RecruitmentsPage',
   components:{
     'create-new-user-modal' : CreateUserModal,
     'edit-user-modal': EditUserModal
   },
   computed: {
-      hrms_users_list(){
-
-              return this.$store.getters['users/get_hrms_users']
+      recruitments_list(){
+        return this.$store.getters['recruitments/get_recruitments']
       },
   },
   watch: {
-      hrms_users_list(newvalue){
+      recruitments_list(newvalue){
               return newvalue
       },
       $route: {
           immediate: true,
           handler(to, from) {
-              document.title = to.meta.title || 'Users';
+              document.title = to.meta.title || 'Recruitments';
           }
       },
   },
@@ -124,16 +123,14 @@ export default {
      return {}
   },
   methods:{
-      async get_hrms_users(){
-         let result =  await this.$store.dispatch('users/GET_HRMS_USERS')
+      async get_recruitments(){
+         let result =  await this.$store.dispatch('recruitments/GET_RECRUITMENTS')
 
       },
-      async deleteUser(id){
-        var result = confirm("Want to delete?");
-        if (result) {
-          let result =  await this.$store.dispatch('users/DELETE_USER', id)
-          await this.$store.dispatch('users/GET_HRMS_USERS')
-        }
+      async deleteRecruitment(id){
+         let result =  await this.$store.dispatch('recruitments/DELETE_RECRUITMENT', id)
+        await this.$store.dispatch('recruitments/GET_RECRUITMENTS')
+
          
       },
 
@@ -147,7 +144,7 @@ export default {
 
   },
   created(){
-      this.get_hrms_users();
+      this.get_recruitments();
   },
   mounted(){},
 }

@@ -129,8 +129,13 @@ export default {
 
       },
       async deleteApplicant(id){
-         let result =  await this.$store.dispatch('applicants/DELETE_APPLICANT', id)
-         await this.$store.dispatch('applicants/GET_APPLICANTS')
+      var result = confirm("Want to delete?");
+      if (result) {
+        let result =  await this.$store.dispatch('applicants/DELETE_APPLICANT', id)
+        await this.$store.dispatch('applicants/GET_APPLICANTS')
+      }
+
+         
       },
       
       openNewApplicantModal(){
