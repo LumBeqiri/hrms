@@ -16,7 +16,7 @@
                             <b-nav-item :to="'/app/users'">Users</b-nav-item>
                             <b-nav-item :to="'/app/positions'">Positions</b-nav-item>
                             <b-nav-item :to="'/app/applicants'">Applicants</b-nav-item>
-                            <!-- <b-nav-item :to="'/app/recruitments'">Recruitments</b-nav-item> -->
+                            <b-nav-item :to="'/app/recruitments'">Recruitments</b-nav-item>
 
 
 

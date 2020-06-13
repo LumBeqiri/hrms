@@ -42,7 +42,7 @@
                           <td>Name</td>
                           <td>Department</td>
                           <td>Open Positions</td>
-                          <td>Operations</td>
+                          <td style="padding-right:50px;" class="l">Operations</td>
                         </tr>
                     </thead>
                     <tbody>

@@ -1,7 +1,7 @@
 <template>
     <div class="page_content">
       <div class="container">
-           
+          
                 <b-row align-v="center">
 
                     <div class="col-6 col-md-6 col-sm-6 col-lg-6 col-xl-6">
@@ -21,7 +21,7 @@
                         <div class="hrms_actions text-right">
                               <ul>
                                 <li>
-                                    <b-button variant="primary" @click="openNewUserModal">Add to Recruitment</b-button>
+                                    <b-button variant="primary" @click="openNewRecruitmentModal">Add to Recruitment</b-button>
                                 </li>
                               </ul>
                           </div>
@@ -46,28 +46,32 @@
                           <td>Status</td>
                           <td>Notes</td>
                           <td>Position</td>
-                          <td>Operations</td>
+                          <td style="padding-right:50px;" class="l">Operations</td>
                         </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(user_item, index) in hrms_users_list" :key="index">
+                      <tr v-for="(recruit, index) in recruitments_list" :key="index">
                           <td>
-                            {{user_item.metadata.first_name | capitalizeLetter}}
+                            {{recruit.applicant_id.first_name }}
                           </td>
                           <td>
-                             {{user_item.metadata.last_name | capitalizeLetter}}
+                             {{recruit.last_name }}
                           </td>
                           <td>
-                             {{user_item.department.name | capitalizeLetter}}
+                             {{recruit.status }}
                           </td>
                           <td>
-                             {{user_item.role.name | capitalizeLetter}}
+                             {{recruit.notes }}
                           </td>
+                          <td>
+                             {{recruit.position }}
+                          </td>
+
                           <template v-if="user_role.id == 1">
                               <td class="table-actions">
-                                 <b-button size="md"  :to="{ name: 'usersSingle', params: { userId: user_item.id }}" variant="info" class="ml-2" type="submit">View</b-button>
-                                <b-button size="md" @click="deleteUser(user_item.id)" variant="danger" class="ml-2" type="submit">Delete</b-button>
-                                <b-button size="md"  @click="openEditUserModal(user_item.id)" variant="success" class="ml-2" type="submit">Edit</b-button>
+                                 <!-- 8<b-button size="md"  :to="{ name: 'usersSingle', params: { userId: user_item.id }}" variant="info" class="ml-2" type="submit">View</b-button> -->
+                                <b-button size="md" @click="deleteUser(recruit.id)" variant="danger" class="ml-2" type="submit">Delete</b-button>
+                                <b-button size="md"  @click="openEditUserModal(recruit.id)" variant="success" class="ml-2" type="submit">Edit</b-button>
                               </td>
                           </template>
                            <template v-if="user_role.id !== 1">
@@ -84,7 +88,7 @@
 
       </div>
 
-      <create-new-user-modal ref="CreateNewUserModal"/>
+      <create-new-recruitment-modal ref="CreateNewRecruitmentModal"/>
       <edit-user-modal ref="EditUserModal"/>
 
 
@@ -92,7 +96,7 @@
 
 </template>
 <script>
-import CreateUserModal from '@modals/createNewUserModal.vue'
+import CreateRecruitmentModal from '@modals/createNewRecruitmentModal.vue'
 import EditUserModal from '@modals/editUserModal.vue'
 
 import { globalMixings } from '@utils/global-mixin'
@@ -100,7 +104,7 @@ export default {
   mixins: [globalMixings],
   name : 'RecruitmentsPage',
   components:{
-    'create-new-user-modal' : CreateUserModal,
+    'create-new-recruitment-modal' : CreateRecruitmentModal,
     'edit-user-modal': EditUserModal
   },
   computed: {
@@ -134,8 +138,8 @@ export default {
          
       },
 
-      openNewUserModal(){
-       this.$refs.CreateNewUserModal.toggleModal();
+      openNewRecruitmentModal(){
+       this.$refs.CreateNewRecruitmentModal.toggleModal();
       },
       openEditUserModal(id){
        

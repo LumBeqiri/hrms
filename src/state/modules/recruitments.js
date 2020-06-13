@@ -85,9 +85,9 @@ import {
             retryTimes: 2
           })
           .then(response => {
-            //console.log(response);
+           // console.log(response);
             commit('SET_RECRUITMENTS', response.data); 
-            resolve(true);
+            
           })
           .catch(error => {
             reject(error);

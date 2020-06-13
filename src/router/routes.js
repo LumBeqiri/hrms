@@ -14,11 +14,6 @@ const Applicants = () => import(/* webpackChunkName: "Positions" */ '@views/admi
 const Recruitments = () => import(/* webpackChunkName: "Positions" */ '@views/admin/recruitments.vue');
 
 
-
-
-
-
-
 export default [
   /* ------------------------ PUBLIC SCREENS ------------------------------ */
   {

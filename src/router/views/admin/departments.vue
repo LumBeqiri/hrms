@@ -41,7 +41,7 @@
             <thead>
                 <tr>
                   <td>Department</td>
-                  <td>Operations</td>
+                  <td style="padding-right:50px;" class="l">Operations</td>
                 </tr>
             </thead>
             <tbody>

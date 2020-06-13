@@ -46,7 +46,7 @@
                           <td>Surname</td>
                           <td>Department</td>
                           <td>Role</td>
-                          <td>Operations</td>
+                          <td style="padding-right:80px;" class="l">Operations</td>
                         </tr>
                     </thead>
                     <tbody>

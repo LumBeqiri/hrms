@@ -43,10 +43,6 @@ const actions = {
       ...user_details
     }
 
-
-
-
-
     return new Promise((resolve, reject) => {
       API_CONFIG.SITE_AXIOS
         .post(current_api, login_details, {
