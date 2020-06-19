@@ -27,9 +27,9 @@
                           </div>
                     </div>
                </b-row>
-                
-
-
+           
+            {{recruitments_list}}
+            
              <template v-if="recruitments_list.length == 0">
                 <div class="text-center mt-4 ml-4 mb-4 mr-4">
                        <b-spinner label="Spinning"></b-spinner>
@@ -52,19 +52,19 @@
                     <tbody>
                       <tr v-for="(recruit, index) in recruitments_list" :key="index">
                           <td>
-                            {{recruit.applicant_id.first_name }}
+                            {{recruit.applicant.first_name | capitalizeLetter}}
                           </td>
                           <td>
-                             {{recruit.last_name }}
+                             {{recruit.applicant.last_name | capitalizeLetter}}
                           </td>
                           <td>
-                             {{recruit.status }}
+                             {{recruit.recruitment_status.name | capitalizeLetter }}
                           </td>
                           <td>
                              {{recruit.notes }}
                           </td>
                           <td>
-                             {{recruit.position }}
+                             {{recruit.applicant.position.name}}
                           </td>
 
                           <template v-if="user_role.id == 1">
