@@ -27,8 +27,7 @@
                           </div>
                     </div>
                </b-row>
-           
-            {{recruitments_list}}
+
             
              <template v-if="recruitments_list.length == 0">
                 <div class="text-center mt-4 ml-4 mb-4 mr-4">

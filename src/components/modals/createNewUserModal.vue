@@ -110,7 +110,7 @@
                                 <input
                                         type="text"
                                         v-model="city"
-                                        placeholder="Ciity"
+                                        placeholder="City"
                                         class="hrms_input"
                                         required
                                         >
@@ -314,7 +314,11 @@ export default {
       return this.$Validator.value(value).maxLength(25).required()
     },
     base_salary: function(value) {
-      return this.$Validator.value(value).maxLength(7).float()
+      if(isNaN(this.base_salary)){
+        alert("not a number")
+        this.base_salary = ''
+      }
+      return this.$Validator.value(value).maxLength(7).float().required()
     },
     street: function(value) {
       return this.$Validator.value(value).maxLength(25).required()
@@ -340,6 +344,15 @@ export default {
     password: function(value) {
       return this.$Validator.value(value).required();
     },
+    // confirm_password: function(value) {
+    //   if(value === this.password){
+    //     alert('Passwords do not match')
+    //     this.confirm_password = ''
+    //   }
+      
+    // }
+
+    
   },
   
   
@@ -373,6 +386,10 @@ export default {
 
     async CreateUser() {
       let validationSucceded = await this.$validate()
+      if(this.password !== this.confirm_password){
+        alert("Passwords do not match")
+        validationSucceded = false;
+      }
       console.log(validationSucceded)
     
       let data = {
