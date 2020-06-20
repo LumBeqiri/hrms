@@ -41,7 +41,7 @@ const actions = {
           retryTimes: 2
         })
         .then(response => {
-          console.log(response);
+         // console.log(response);
           commit('SET_HRMS_USERS', response.data); // Set user is loggedin
           resolve(true);
         })

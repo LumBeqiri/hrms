@@ -59,8 +59,11 @@
                           <td>
                              {{recruit.recruitment_status.name | capitalizeLetter }}
                           </td>
-                          <td>
-                             {{recruit.notes }}
+                          <td v-if="recruit.notes ===''">
+                            No notes yet
+                          </td>
+                          <td v-else>
+                              {{recruit.notes }}
                           </td>
                           <td>
                              {{recruit.applicant.position.name}}

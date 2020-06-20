@@ -302,7 +302,6 @@ export default {
                 role_id: '',
                 password: '',
                 confirm_password: ''
-               
 
     }
   },
@@ -372,7 +371,6 @@ export default {
       this.$refs['CreateNewUserModal'].hide()
     },
     toggleModal() {
-      console.log()
       this.$refs['CreateNewUserModal'].show()
     },
 
