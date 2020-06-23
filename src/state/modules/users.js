@@ -6,9 +6,7 @@ import {
 
 const state = {
   hrms_users: [],
-
-
-
+  hrms_user: []
 };
 
 

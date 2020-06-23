@@ -7,7 +7,7 @@
     footer-class="modal_actions"
 
     @hide="ChangeToDefault"
-    ref="EditUserModal"
+    ref="EditDepartmentModal"
     title="Using Component Methods"
   >
     <template v-slot:modal-header="{ close }">
@@ -79,7 +79,7 @@ import { globalMixings } from '@utils/global-mixin'
 export default {
   mixins: [globalMixings],
 
-  name: 'EditUserModal',
+  name: 'EditDepartmentModal',
   components: {
     
   },
@@ -92,9 +92,7 @@ export default {
   },
 
   watch: {
-    singleUser(newvalue){
-                return newvalue
-      },
+  
     departmentList(newvalue){
               return newvalue
       }
@@ -127,10 +125,10 @@ export default {
       },
 
     hideModal() {
-      this.$refs['EditUserModal'].hide()
+      this.$refs['EditDepartmentModal'].hide()
     },
     toggleModal(id, dpname) {
-      this.$refs['EditUserModal'].show()
+      this.$refs['EditDepartmentModal'].show()
       this.name= dpname
       this.id = id;
     },

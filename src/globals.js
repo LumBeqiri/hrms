@@ -13,21 +13,20 @@ Vue.use(VueLazyload, {
 })
 
 
-
 Vue.component('mstrNotification',
   () => import('@misc/MstrErrorBottomNotifications.vue')
 )
 
 
-import vuexI18n from 'vuex-i18n';
-import translationsEn from '@src/languages/en.json'
-import translationsFr from '@src/languages/fr.json'
-// add translations directly to the application
-Vue.use(vuexI18n.plugin, store);
-Vue.i18n.add('en', translationsEn);
-Vue.i18n.add('fr', translationsFr);
-// set the start locale to use
-Vue.i18n.set('en');
+// import vuexI18n from 'vuex-i18n';
+// import translationsEn from '@src/languages/en.json'
+// import translationsFr from '@src/languages/fr.json'
+// // add translations directly to the application
+// Vue.use(vuexI18n.plugin, store);
+// Vue.i18n.add('en', translationsEn);
+// Vue.i18n.add('fr', translationsFr);
+// // set the start locale to use
+// Vue.i18n.set('en');
 
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)

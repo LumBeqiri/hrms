@@ -144,8 +144,7 @@ export default {
   },
   computed: {
    positionList(){
-
-              return this.$store.getters['positions/get_positions']
+     return this.$store.getters['positions/get_positions']
       },
    
 

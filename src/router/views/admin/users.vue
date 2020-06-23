@@ -8,7 +8,6 @@
                         <div class="hrms_breadcrumb">
                             <b-breadcrumb>
                               <b-breadcrumb-item href="#home">
-                               
                                 Dashboard
                               </b-breadcrumb-item>
                               <b-breadcrumb-item active>Users</b-breadcrumb-item>
@@ -19,7 +18,7 @@
 
                     <div class="col-6 col-md-6 col-sm-6 col-lg-6 col-xl-6">
 
-                        <div class="hrms_actions text-right">
+                        <div v-if="user_role.name === CEO() || user_role.name === HR_MANAGER() " class="hrms_actions text-right">
                               <ul>
                                 <li>
                                     <b-button variant="primary" @click="openNewUserModal">Create user</b-button>
@@ -63,17 +62,16 @@
                           <td>
                              {{user_item.role.name | capitalizeLetter}}
                           </td>
-                          <template v-if="user_role.id == 1">
+                          
+                          <template v-if="user_role.name === CEO() || user_role.name === HR_MANAGER() ">
                               <td class="table-actions">
                                  <b-button size="md"  :to="{ name: 'usersSingle', params: { userId: user_item.id }}" variant="info" class="ml-2" type="submit">View</b-button>
                                 <b-button size="md" @click="deleteUser(user_item.id)" variant="danger" class="ml-2" type="submit">Delete</b-button>
                                 <b-button size="md"  @click="openEditUserModal(user_item.id)" variant="success" class="ml-2" type="submit">Edit</b-button>
                               </td>
                           </template>
-                           <template v-if="user_role.id !== 1">
-                              <td class="table-actions">
-                                 <b-button size="md"  :to="{ name: 'usersSingle', params: { userId: user_item.id }}" variant="info" class="ml-2" type="submit">View</b-button>
-                              </td>
+                           <template v-else>
+                              
                           </template>
 
                       </tr>

@@ -67,24 +67,21 @@ export default {
 
 
             let validationSucceded = await this.$validate()
-
             if(validationSucceded){
                   let data =  {
                     "email": this.email,
                     "password": this.password
                   }
 
-                   await this.$store.dispatch('user/auth/LOGIN_USER', data)
-
-
-
+             await this.$store.dispatch('user/auth/LOGIN_USER', data)
+            
             }
-
       }
 
   },
   created(){},
   mounted(){},
+  
 }
 </script>
 <style lang="scss" scoped>

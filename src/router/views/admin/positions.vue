@@ -18,7 +18,7 @@
 
                     <div class="col-6 col-md-6 col-sm-6 col-lg-6 col-xl-6">
 
-                        <div class="hrms_actions text-right">
+                        <div v-if="user_role.name === HR_MANAGER() || user_role.name === CEO()" class="hrms_actions text-right">
                               <ul>
                                 <li>
                                     <b-button variant="primary" @click="openNewPositionModal">Open Position</b-button>
@@ -57,16 +57,14 @@
                              {{position.qty}}
                           </td>
                         
-                          <template v-if="user_role.id == 1">
+                          <template v-if="user_role.name === HR_MANAGER() || user_role.name === CEO()">
                               <td class="table-actions">
                                 <b-button size="md" @click="deletePosition(position.id)" variant="danger" class="ml-2" type="submit">Delete</b-button>
                                 <b-button size="md"  @click="openEditPositionModal(position.id)" variant="success" class="ml-2" type="submit">Edit</b-button>
                               </td>
                           </template>
-                           <template v-if="user_role.id !== 1">
-                              <td class="table-actions">
-                                 <b-button size="md"  :to="{ name: 'usersSingle', params: { userId: user_item.id }}" variant="info" class="ml-2" type="submit">View</b-button>
-                              </td>
+                           <template v-else>
+                            
                           </template>
 
                       </tr>

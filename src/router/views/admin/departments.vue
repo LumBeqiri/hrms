@@ -5,7 +5,7 @@
         <b-row align-v="center">
 
             <div class="col-6 col-md-6 col-sm-6 col-lg-6 col-xl-6">
-                <div class="hrms_breadcrumb">
+                <div  class="hrms_breadcrumb">
                     <b-breadcrumb>
                       <b-breadcrumb-item href="#home">
                         
@@ -19,7 +19,7 @@
 
             <div class="col-6 col-md-6 col-sm-6 col-lg-6 col-xl-6">
 
-                <div class="hrms_actions text-right">
+                <div v-if="user_role.name === CEO() || user_role.name === HR_MANAGER() || user_role.name === DEPARTMENT_MANAGER()" class="hrms_actions text-right">
                       <ul>
                         <li>
                             <b-button variant="primary" @click="openNewDepartmentModal">Create Department</b-button>
@@ -47,18 +47,17 @@
             <tbody>
               <tr v-for="(department_item, index) in departmentList" :key="index">
                   <td>
-                    {{department_item.name  }}
+                    {{department_item.name}}
                   </td>
                 
-                  <template v-if="user_role.id == 1">
+                  <template v-if="user_role.name === CEO() || user_role.name === HR_MANAGER() || user_role.name === DEPARTMENT_MANAGER()">
                       <td class="table-actions">
                         <b-button size="md"  @click="openEditDepartmentModal(department_item.id, department_item.name)" variant="success" class="ml-2" type="submit">Edit</b-button>
                         <b-button size="md" @click="deleteDepartment(department_item.id)" variant="danger" class="ml-2" type="submit">Delete</b-button>
                       </td>
                   </template>
-                    <template v-if="user_role.id !== 1">
+                    <template v-else>
                       <td class="table-actions">
-                          
                       </td>
                   </template>
 
@@ -72,7 +71,6 @@
 
       <create-new-department-modal ref="CreateNewDepartmentModal"/>
       <edit-department-modal ref="EditDepartmentModal"/>
-
 
     </div>
 </template>

@@ -162,7 +162,7 @@ export default {
             position_id : ''
     }
   },
-   validators: {
+  validators: {
     first_name: function(value) {
       return this.$Validator.value(value).maxLength(25).required()
     },
@@ -222,9 +222,7 @@ export default {
 
           }else{alert("Fill in the fields")}
     },
-    /**
-     * * EVENT FIRED WHEN MODAL CLOSES
-     */
+  
     ChangeToDefault() {
       this.validation.reset()
     },

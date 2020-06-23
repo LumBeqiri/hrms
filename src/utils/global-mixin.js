@@ -10,7 +10,27 @@ export const globalMixings = {
     }
   },
   data() {
-    return {}
+    return {
+      CEO(){
+        return 'Ceo'
+      },
+      HR_MANAGER(){
+        return 'HR Manager'
+      },
+      FINANCIAL_MANAGER(){
+        return 'Financial Manager'
+      },
+      DEPARTMENT_MANAGER(){
+        return 'Department Manager'
+      },
+      TEAM_LEADER(){
+        return 'Team leader'
+      },
+      EMPLOYEE(){
+        return 'EMPLOYEE'
+      },
+
+    }
   },
   filters:{
     capitalizeLetter(value){
