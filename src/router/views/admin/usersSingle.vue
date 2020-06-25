@@ -14,7 +14,7 @@
                                 Dashboard
                               </b-breadcrumb-item>
                                <b-breadcrumb-item to="''">Users</b-breadcrumb-item>
-                              <b-breadcrumb-item active>{{singleUser.metadata.first_name | capitalizeLetter}}</b-breadcrumb-item>
+                              <b-breadcrumb-item active>{{singleUser.first_name | capitalizeLetter}}</b-breadcrumb-item>
                             </b-breadcrumb>
 
                       </div>
@@ -50,10 +50,10 @@
                       <tr>
 
                           <td>
-                            {{singleUser.metadata.first_name | capitalizeLetter}}
+                            {{singleUser.first_name | capitalizeLetter}}
                           </td>
                           <td>
-                             {{singleUser.metadata.last_name | capitalizeLetter}}
+                             {{singleUser.last_name | capitalizeLetter }}
                           </td>
                           <td>
                             {{ singleUser.department.name | capitalizeLetter}}
@@ -62,10 +62,10 @@
                             {{ singleUser.role.name | capitalizeLetter}}
                           </td>
                           <td>
-                            {{ singleUser.email}}
+                            {{ singleUser.email }}
                           </td>
                           <td>
-                            {{ singleUser.metadata.base_salary}} USD
+                            {{ singleUser.base_salary | capitalizeLetter}} USD
                           </td>
                       </tr>
                     </tbody>

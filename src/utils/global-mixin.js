@@ -27,7 +27,7 @@ export const globalMixings = {
         return 'Team leader'
       },
       EMPLOYEE(){
-        return 'EMPLOYEE'
+        return 'Employee'
       },
 
     }

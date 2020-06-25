@@ -73,8 +73,9 @@ export default {
                     "password": this.password
                   }
 
-             await this.$store.dispatch('user/auth/LOGIN_USER', data)
-            
+           await this.$store.dispatch('user/auth/LOGIN_USER', data)
+        
+
             }
       }
 

@@ -24,7 +24,7 @@
                               <b-nav-item-dropdown right>
                                 <!-- Using 'button-content' slot -->
                                 <template v-slot:button-content>
-                                  {{user_profile_info.metadata.first_name | capitalizeLetter }}
+                                  {{user_profile_info.first_name | capitalizeLetter }}
                                 </template>
                                 <b-dropdown-item href="#">Profile</b-dropdown-item>
                                 <b-dropdown-item  @click="logoutUser()">Sign Out</b-dropdown-item>

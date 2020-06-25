@@ -68,7 +68,7 @@
                         
                           <template v-if="user_role.name === HR_MANAGER() || user_role.name === CEO()">
                               <td class="table-actions">
-                                <b-button size="md" @click="deleteApplicant(applicant.id)" variant="danger" class="ml-2" type="submit">Delete</b-button>
+                                <b-button size="md" @click="deleteApplicant(applicant.id, applicant.first_name)" variant="danger" class="ml-2" type="submit">Delete</b-button>
                                 <b-button size="md"  @click="openEditApplicantModal(applicant.id)" variant="success" class="ml-2" type="submit">Edit</b-button>
                               </td>
                           </template>
@@ -127,8 +127,8 @@ export default {
          let result =  await this.$store.dispatch('applicants/GET_APPLICANTS')
 
       },
-      async deleteApplicant(id){
-      var result = confirm("Want to delete?");
+      async deleteApplicant(id, name){
+      var result = confirm("Want to delete " + name + "?");
       if (result) {
         let result =  await this.$store.dispatch('applicants/DELETE_APPLICANT', id)
         await this.$store.dispatch('applicants/GET_APPLICANTS')

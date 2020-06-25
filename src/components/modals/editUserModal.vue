@@ -161,14 +161,13 @@
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"> 
                         <div class="form__group" >
-                            <label>Role</label>
-                            <select class="hrms_input" v-model="role_id">
-                            <option value>Select user role</option>
-                            <option value="1">Director</option>
-                            <option value="2">HR Manager</option>
-                            <option value="3">Lead</option>
-                            <option value="4">Employee</option>
-                            </select>
+                            
+                          <label>Role</label>
+                          <select class="hrms_input" v-model="role_id">
+                              <option value>Select Role</option>
+                              <option v-for="(role,index) in rolesList" :key="index" :value="role.id" >{{role.name}}</option>
+                          </select>
+                            
                         
                             <p v-show="validation.hasError('role_id')" class="error_message">
                                 <template v-if="validation.allErrors('role_id') == 'Required.'">
@@ -270,12 +269,12 @@ export default {
        //console.log("useri")
        //console.log(data)
         this.id = data.id,
-        this.first_name = data.metadata.first_name,
-        this.last_name = data.metadata.last_name,
-        this.base_salary = data.metadata.base_salary,
-        this.street = data.metadata.street,
-        this.city = data.metadata.city,
-        this.country = data.metadata.country,
+        this.first_name = data.first_name,
+        this.last_name = data.last_name,
+        this.base_salary = data.base_salary,
+        this.street = data.street,
+        this.city = data.city,
+        this.country = data.country,
         this.email = data.email,
         this.department_id = data.department.id,
         this.role_id = data.role.id,

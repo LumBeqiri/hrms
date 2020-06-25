@@ -51,15 +51,16 @@ const actions = {
         })
         .then(response => {
           commit('SET_USER_AS_LOGGEDIN') // Set user is loggedin
-
+         
           Vue.$cookies.set("token", response.data.access_token);
           router.push({
             name: 'AdminPageDashboard'
           })
-          resolve(true);
+         resolve(true);
         })
         .catch(error => {
           reject(error);
+          alert("Wrong password or email")
         });
     });
   },

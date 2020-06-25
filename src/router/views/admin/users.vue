@@ -51,16 +51,16 @@
                     <tbody>
                       <tr v-for="(user_item, index) in hrms_users_list" :key="index">
                           <td>
-                            {{user_item.metadata.first_name | capitalizeLetter}}
+                            {{user_item.first_name }}
                           </td>
                           <td>
-                             {{user_item.metadata.last_name | capitalizeLetter}}
+                             {{user_item.last_name }}
                           </td>
                           <td>
-                             {{user_item.department.name | capitalizeLetter}}
+                             {{user_item.department.name }}
                           </td>
                           <td>
-                             {{user_item.role.name | capitalizeLetter}}
+                             {{user_item.role.name }}
                           </td>
                           
                           <template v-if="user_role.name === CEO() || user_role.name === HR_MANAGER() ">
