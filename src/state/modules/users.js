@@ -3,6 +3,7 @@ import {
   API_CONFIG
 } from '@utils/server.js';
 
+  
 
 const state = {
   hrms_users: [],
@@ -18,7 +19,7 @@ const mutations = {
     state.hrms_user = data
   },
   RESET(state) {
-    state.hrms_users = []
+    state.hrms_users = [],
     state.hrms_user = []
   }
 };
@@ -31,6 +32,26 @@ const actions = {
   GET_HRMS_USERS({commit}) {
     let current_api = API_CONFIG.API_ENDPOINT + 'users'
 
+  
+    return new Promise((resolve, reject) => {
+      API_CONFIG.SITE_AXIOS
+        .get(current_api, {}, {
+          cache: true,
+          retryTimes: 2
+        })
+        .then(response => {
+         //console.log(response);
+          commit('SET_HRMS_USERS', response.data); 
+          resolve(true);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  },
+
+  GET_NEXT_PAGE({commit}, page_url) {
+    let current_api = page_url
 
     return new Promise((resolve, reject) => {
       API_CONFIG.SITE_AXIOS
@@ -39,8 +60,8 @@ const actions = {
           retryTimes: 2
         })
         .then(response => {
-         // console.log(response);
-          commit('SET_HRMS_USERS', response.data); // Set user is loggedin
+         console.log(response.data);
+          commit('SET_HRMS_USERS', response.data); 
           resolve(true);
         })
         .catch(error => {
@@ -48,6 +69,28 @@ const actions = {
         });
     });
   },
+
+  GET_PREVIOUS_PAGE({commit}, page_url) {
+    let current_api = page_url
+
+    return new Promise((resolve, reject) => {
+      API_CONFIG.SITE_AXIOS
+        .get(current_api, {}, {
+          cache: true,
+          retryTimes: 2
+        })
+        .then(response => {
+         console.log(response.data);
+          commit('SET_HRMS_USERS', response.data); 
+          resolve(true);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  },
+
+
 
   //get single user from api
   GET_HRMS_USER({commit}, user_id) {
@@ -149,7 +192,8 @@ const getters = {
   },
   get_hrms_user(state){
     return state.hrms_user
-  }
+  },
+
 
 };
 

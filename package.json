@@ -21,6 +21,7 @@
     "bootstrap": "^4.4.1",
     "bootstrap-vue": " ^2.1.0",
     "core-js": "^3.4.3",
+    "laravel-vue-pagination": "^2.3.1",
     "normalize.css": "8.0.1",
     "nprogress": "0.2.0",
     "promise-polyfill": "^8.1.3",

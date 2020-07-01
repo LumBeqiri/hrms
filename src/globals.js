@@ -17,6 +17,7 @@ Vue.component('mstrNotification',
   () => import('@misc/MstrErrorBottomNotifications.vue')
 )
 
+Vue.component('pagination', require('laravel-vue-pagination'));
 
 // import vuexI18n from 'vuex-i18n';
 // import translationsEn from '@src/languages/en.json'

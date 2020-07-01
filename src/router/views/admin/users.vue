@@ -29,15 +29,19 @@
                </b-row>
                 
 
-
-             <template v-if="hrms_users_list.length == 0">
+             <template v-if="users.length == 0">
                 <div class="text-center mt-4 ml-4 mb-4 mr-4">
                        <b-spinner label="Spinning"></b-spinner>
                 </div>
 
              </template>
              <template v-else>
-
+               <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                    <li style="cursor: pointer" class="page-item"><a class="page-link" @click="goBack(users.prev_page_url)">Previous</a></li>
+                    <li style="cursor: pointer" class="page-item"><a class="page-link" @click="goNext(users.next_page_url)">Next</a></li>
+                  </ul>
+                 </nav>
                 <table class="hrms_table">
                     <thead>
                         <tr>
@@ -49,7 +53,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(user_item, index) in hrms_users_list" :key="index">
+                      <tr v-for="(user_item, index) in users.data" :key="index">
                           <td>
                             {{user_item.first_name }}
                           </td>
@@ -65,7 +69,7 @@
                           
                           <template v-if="user_role.name === CEO() || user_role.name === HR_MANAGER() ">
                               <td class="table-actions">
-                                 <b-button size="md"  :to="{ name: 'usersSingle', params: { userId: user_item.id }}" variant="info" class="ml-2" type="submit">View</b-button>
+                                <b-button size="md"  :to="{ name: 'usersSingle', params: { userId: user_item.id }}" variant="info" class="ml-2" type="submit">View</b-button>
                                 <b-button size="md" @click="deleteUser(user_item.id)" variant="danger" class="ml-2" type="submit">Delete</b-button>
                                 <b-button size="md"  @click="openEditUserModal(user_item.id)" variant="success" class="ml-2" type="submit">Edit</b-button>
                               </td>
@@ -73,26 +77,25 @@
                            <template v-else>
                               
                           </template>
-
                       </tr>
                     </tbody>
                 </table>
+
              </template>
-
-
+             
       </div>
+
+        
+           
 
       <create-new-user-modal ref="CreateNewUserModal"/>
       <edit-user-modal ref="EditUserModal"/>
-
-
     </div>
 
 </template>
 <script>
 import CreateUserModal from '@modals/createNewUserModal.vue'
 import EditUserModal from '@modals/editUserModal.vue'
-
 import { globalMixings } from '@utils/global-mixin'
 export default {
   mixins: [globalMixings],
@@ -103,14 +106,14 @@ export default {
   },
   computed: {
       hrms_users_list(){
-
-              return this.$store.getters['users/get_hrms_users']
-      },
+            this.users =  this.$store.getters['users/get_hrms_users']
+      }
   },
   watch: {
       hrms_users_list(newvalue){
               return newvalue
       },
+
       $route: {
           immediate: true,
           handler(to, from) {
@@ -119,13 +122,18 @@ export default {
       },
   },
   data(){
-     return {}
+     return {
+       users : {}
+     }
   },
+
   methods:{
+
       async get_hrms_users(){
          let result =  await this.$store.dispatch('users/GET_HRMS_USERS')
-
+        
       },
+
       async deleteUser(id){
         var result = confirm("Want to delete?");
         if (result) {
@@ -135,19 +143,29 @@ export default {
          
       },
 
+
+   async goNext(current_page) {
+      await this.$store.dispatch('users/GET_NEXT_PAGE', current_page)
+    },
+    
+    async goBack(current_page) {
+      await this.$store.dispatch('users/GET_PREVIOUS_PAGE', current_page)
+		},
+      
       openNewUserModal(){
        this.$refs.CreateNewUserModal.toggleModal();
       },
       openEditUserModal(id){
-       
         this.$refs.EditUserModal.toggleModal(id);
       }
 
   },
   created(){
       this.get_hrms_users();
+  
   },
-  mounted(){},
+  mounted(){
+  },
 }
 </script>
 <style lang="scss" scoped>
