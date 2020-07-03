@@ -36,6 +36,7 @@ const actions = {
     let data = { 
         ...departmentDetails
     }
+
     return new Promise((resolve, reject) => {
       API_CONFIG.SITE_AXIOS
         .post(current_api, data , {
