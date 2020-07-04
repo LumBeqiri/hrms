@@ -82,7 +82,7 @@ import { globalMixings } from '@utils/global-mixin'
 
 export default {
   mixins: [globalMixings],
-  name : "UserSingle",
+  name : "userSingle",
   components:{},
   computed: {
     singleUser(){
@@ -102,7 +102,9 @@ export default {
       },
   },
   data(){
-     return {}
+     return {
+       back_url :''
+     }
   },
   methods:{
     async get_user(){

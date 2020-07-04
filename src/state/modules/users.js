@@ -60,7 +60,7 @@ const actions = {
           retryTimes: 2
         })
         .then(response => {
-         console.log(response.data);
+        // console.log(response.data);
           commit('SET_HRMS_USERS', response.data); 
           resolve(true);
         })
@@ -80,7 +80,7 @@ const actions = {
           retryTimes: 2
         })
         .then(response => {
-         console.log(response.data);
+        // console.log(response.data);
           commit('SET_HRMS_USERS', response.data); 
           resolve(true);
         })
@@ -166,7 +166,7 @@ const actions = {
   DELETE_USER({}, user_id) {
   
     let current_api = API_CONFIG.API_ENDPOINT + 'users/'+ user_id
-  console.log(user_id)
+    console.log(user_id)
    
 
     return new Promise((resolve, reject) => {

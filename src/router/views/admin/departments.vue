@@ -3,6 +3,7 @@
       <div class="container">
     
         <b-row align-v="center">
+         
 
             <div class="col-6 col-md-6 col-sm-6 col-lg-6 col-xl-6">
                 <div  class="hrms_breadcrumb">
@@ -29,14 +30,19 @@
             </div>
         </b-row>
     
-      <template v-if="departmentList.length == 0">
+      <template v-if="departments.length == 0">
         <div class="text-center mt-4 ml-4 mb-4 mr-4">
                 <b-spinner label="Spinning"></b-spinner>
         </div>
 
       </template>
       <template v-else>
-
+        <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                    <li style="cursor: pointer" class="page-item"><a class="page-link" @click="goBack(departments.prev_page_url)">Previous</a></li>
+                    <li style="cursor: pointer" class="page-item"><a class="page-link" @click="goNext(departments.next_page_url)">Next</a></li>
+                  </ul>
+                 </nav>
         <table class="hrms_table">
             <thead>
                 <tr>
@@ -45,7 +51,7 @@
                 </tr>
             </thead>
             <tbody>
-              <tr v-for="(department_item, index) in departmentList" :key="index">
+              <tr v-for="(department_item, index) in departments.data" :key="index">
                   <td>
                     {{department_item.name}}
                   </td>
@@ -89,7 +95,7 @@ export default {
   computed: {
       departmentList(){
 
-              return this.$store.getters['departments/get_department_details']
+              this.departments = this.$store.getters['departments/get_department_details']
       },
   },
   watch: {
@@ -106,9 +112,21 @@ export default {
     
   },
   data(){
-     return {}
+     return {
+       departments : {}
+     }
   },
   methods:{
+
+    async goNext(current_page) {
+      await this.$store.dispatch('departments/GET_NEXT_PAGE', current_page)
+    },
+    
+    async goBack(current_page) {
+      await this.$store.dispatch('departments/GET_PREVIOUS_PAGE', current_page)
+		},
+
+
       async get_departments(){
          let result =  await this.$store.dispatch('departments/GET_DEPARTMENTS')
 

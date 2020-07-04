@@ -29,6 +29,46 @@ import {
   
   
   const actions = {
+
+    GET_NEXT_PAGE({commit}, page_url) {
+      let current_api = page_url
+  
+      return new Promise((resolve, reject) => {
+        API_CONFIG.SITE_AXIOS
+          .get(current_api, {}, {
+            cache: true,
+            retryTimes: 2
+          })
+          .then(response => {
+          // console.log(response.data);
+            commit('SET_RECRUITMENTS', response.data); 
+            resolve(true);
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    },
+  
+    GET_PREVIOUS_PAGE({commit}, page_url) {
+      let current_api = page_url
+  
+      return new Promise((resolve, reject) => {
+        API_CONFIG.SITE_AXIOS
+          .get(current_api, {}, {
+            cache: true,
+            retryTimes: 2
+          })
+          .then(response => {
+          // console.log(response.data);
+            commit('SET_RECRUITMENTS', response.data); 
+            resolve(true);
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    },
   
     CREATE_RECRUITMENT({}, recruitmentDetails) {
    

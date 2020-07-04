@@ -148,7 +148,7 @@
                                         <label>Department</label>
                                         <select class="hrms_input" v-model="department_id">
                                             <option value>Select department</option>
-                                            <option v-for="(department,index) in departmentList" :key="index" :value="department.id" >{{department.name}}</option>
+                                            <option v-for="(department,index) in departmentList.data" :key="index" :value="department.id" >{{department.name}}</option>
                                         </select>
                                     
                                         <p v-show="validation.hasError('department_id')" class="error_message">
@@ -265,22 +265,22 @@ export default {
       },
 
       singleUser(){
-        let data  =  this.$store.getters['users/get_hrms_user']
+        let user  =  this.$store.getters['users/get_hrms_user']
        //console.log("useri")
-       //console.log(data)
-        this.id = data.id,
-        this.first_name = data.first_name,
-        this.last_name = data.last_name,
-        this.base_salary = data.base_salary,
-        this.street = data.street,
-        this.city = data.city,
-        this.country = data.country,
-        this.email = data.email,
-        this.department_id = data.department.id,
-        this.role_id = data.role.id,
+       //console.log(user)
+        this.id = user.id,
+        this.first_name = user.first_name,
+        this.last_name = user.last_name,
+        this.base_salary = user.base_salary,
+        this.street = user.street,
+        this.city = user.city,
+        this.country = user.country,
+        this.email = user.email,
+        this.department_id = user.department.id,
+        this.role_id = user.role.id,
         this.password = ''
         this.confirm_password = ''
-        return data;
+        return user;
 
       },
       rolesList(){

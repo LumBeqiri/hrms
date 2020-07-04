@@ -28,14 +28,19 @@
                     </div>
                </b-row>
 
-             <template v-if="position_list.length == 0">
+             <template v-if="positions.length == 0">
                 <div class="text-center mt-4 ml-4 mb-4 mr-4">
                        <b-spinner label="Spinning"></b-spinner>
                 </div>
 
              </template>
              <template v-else>
-
+               <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                    <li style="cursor: pointer" class="page-item"><a class="page-link" @click="goBack(positions.prev_page_url)">Previous</a></li>
+                    <li style="cursor: pointer" class="page-item"><a class="page-link" @click="goNext(positions.next_page_url)">Next</a></li>
+                  </ul>
+                 </nav>
                 <table class="hrms_table">
                     <thead>
                         <tr>
@@ -46,7 +51,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(position, index) in position_list" :key="index">
+                      <tr v-for="(position, index) in positions.data" :key="index">
                           <td>
                             {{position.name | capitalizeLetter }}
                           </td>
@@ -97,7 +102,7 @@ export default {
   computed: {
       position_list(){
              // console.log(this.$store.getters['positions/get_positions'])
-              return this.$store.getters['positions/get_positions']
+              this.positions = this.$store.getters['positions/get_positions']
       },
       single_position(){
 
@@ -115,7 +120,9 @@ export default {
       },
   },
   data(){
-     return {}
+     return {
+       positions: {}
+     }
   },
   methods:{
       async get_positions(){
@@ -131,6 +138,13 @@ export default {
          
       },
 
+      async goNext(current_page) {
+      await this.$store.dispatch('positions/GET_NEXT_PAGE', current_page)
+    },
+    
+    async goBack(current_page) {
+      await this.$store.dispatch('positions/GET_PREVIOUS_PAGE', current_page)
+		},
      
       openNewPositionModal(){
        this.$refs.CreateNewPositionModal.toggleModal();

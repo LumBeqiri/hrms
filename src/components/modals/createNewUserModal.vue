@@ -148,7 +148,7 @@
                                         <label>Department</label>
                                         <select class="hrms_input" v-model="department_id">
                                             <option value>Select department</option>
-                                            <option v-for="(department,index) in departmentList" :key="index" :value="department.id" >{{department.name}}</option>
+                                            <option v-for="(department,index) in departmentList.data" :key="index" :value="department.id" >{{department.name}}</option>
                                         </select>
                                     
                                         <p v-show="validation.hasError('department_id')" class="error_message">

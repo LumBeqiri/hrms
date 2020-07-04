@@ -69,7 +69,7 @@
                           
                           <template v-if="user_role.name === CEO() || user_role.name === HR_MANAGER() ">
                               <td class="table-actions">
-                                <b-button size="md"  :to="{ name: 'usersSingle', params: { userId: user_item.id }}" variant="info" class="ml-2" type="submit">View</b-button>
+                                <b-button size="md"  :to="{ name: 'usersSingle', params: { userId: user_item.id}}" variant="info" class="ml-2" type="submit">View</b-button>
                                 <b-button size="md" @click="deleteUser(user_item.id)" variant="danger" class="ml-2" type="submit">Delete</b-button>
                                 <b-button size="md"  @click="openEditUserModal(user_item.id)" variant="success" class="ml-2" type="submit">Edit</b-button>
                               </td>
@@ -80,6 +80,8 @@
                       </tr>
                     </tbody>
                 </table>
+
+        
 
              </template>
              
@@ -151,7 +153,6 @@ export default {
     async goBack(current_page) {
       await this.$store.dispatch('users/GET_PREVIOUS_PAGE', current_page)
 		},
-      
       openNewUserModal(){
        this.$refs.CreateNewUserModal.toggleModal();
       },

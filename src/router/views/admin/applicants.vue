@@ -27,14 +27,19 @@
                           </div>
                     </div>
                </b-row>
-             <template v-if="applicants_list.length == 0">
+             <template v-if="applicants.length == 0">
                 <div class="text-center mt-4 ml-4 mb-4 mr-4">
                        <b-spinner label="Spinning"></b-spinner>
                 </div>
 
              </template>
              <template v-else>
-
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                    <li style="cursor: pointer" class="page-item"><a class="page-link" @click="goBack(applicants.prev_page_url)">Previous</a></li>
+                    <li style="cursor: pointer" class="page-item"><a class="page-link" @click="goNext(applicants.next_page_url)">Next</a></li>
+                  </ul>
+                 </nav>
                 <table class="hrms_table">
                     <thead>
                         <tr>
@@ -49,7 +54,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(applicant, index) in applicants_list" :key="index">
+                      <tr v-for="(applicant, index) in applicants.data" :key="index">
                           <td>
                             {{applicant.first_name | capitalizeLetter}}
                           </td>
@@ -105,7 +110,7 @@ export default {
   },
   computed: {
       applicants_list(){
-              return this.$store.getters['applicants/get_applicants']
+              this.applicants = this.$store.getters['applicants/get_applicants']
       },
   },
   watch: {
@@ -120,9 +125,23 @@ export default {
       },
   },
   data(){
-     return {}
+     return {
+       applicants : {}
+     }
   },
   methods:{
+
+      async goNext(current_page) {
+      await this.$store.dispatch('applicants/GET_NEXT_PAGE', current_page)
+    },
+    
+    async goBack(current_page) {
+      await this.$store.dispatch('applicants/GET_PREVIOUS_PAGE', current_page)
+		},
+
+
+
+
       async get_applicants(){
          let result =  await this.$store.dispatch('applicants/GET_APPLICANTS')
 

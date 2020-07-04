@@ -29,14 +29,19 @@
                </b-row>
 
             
-             <template v-if="recruitments_list.length == 0">
+             <template v-if="recruitments.length == 0">
                 <div class="text-center mt-4 ml-4 mb-4 mr-4">
                        <b-spinner label="Spinning"></b-spinner>
                 </div>
 
              </template>
              <template v-else>
-
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                    <li style="cursor: pointer" class="page-item"><a class="page-link" @click="goBack(recruitments.prev_page_url)">Previous</a></li>
+                    <li style="cursor: pointer" class="page-item"><a class="page-link" @click="goNext(recruitments.next_page_url)">Next</a></li>
+                  </ul>
+                 </nav>
                 <table class="hrms_table">
                     <thead>
                         <tr>
@@ -49,7 +54,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(recruit, index) in recruitments_list" :key="index">
+                      <tr v-for="(recruit, index) in recruitments.data" :key="index">
                           <td>
                             {{recruit.applicant.first_name | capitalizeLetter}}
                           </td>
@@ -109,7 +114,7 @@ export default {
   },
   computed: {
       recruitments_list(){
-        return this.$store.getters['recruitments/get_recruitments']
+        this.recruitments = this.$store.getters['recruitments/get_recruitments']
       },
   },
   watch: {
@@ -124,9 +129,19 @@ export default {
       },
   },
   data(){
-     return {}
+     return {
+       recruitments : {}
+     }
   },
   methods:{
+
+    async goNext(current_page) {
+      await this.$store.dispatch('recruitments/GET_NEXT_PAGE', current_page)
+    },
+    
+    async goBack(current_page) {
+      await this.$store.dispatch('recruitments/GET_PREVIOUS_PAGE', current_page)
+		},
       async get_recruitments(){
          let result =  await this.$store.dispatch('recruitments/GET_RECRUITMENTS')
 
