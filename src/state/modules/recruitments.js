@@ -6,7 +6,8 @@ import {
   
   const state = {
     recruitments: [],
-    recruitment: []
+    recruitment: [],
+    recruitment_status: []
 
   
   
@@ -20,9 +21,13 @@ import {
     SET_RECRUITMENT(state, data) {
       state.recruitment = data
     },
+    SET_RECRUITMENT_STATUS(state, data) {
+      state.recruitment_status = data
+    },
     RESET(state) {
       state.recruitments = []
       state.recruitment = []
+      state.recruitment_status = []
    
     }
   };
@@ -113,6 +118,26 @@ import {
       });
     },
   
+    GET_STATUS_LIST({commit}) {
+      let current_api = API_CONFIG.API_ENDPOINT + 'recruitmentstatus'
+  
+    
+      return new Promise((resolve, reject) => {
+        API_CONFIG.SITE_AXIOS
+          .get(current_api, {}, {
+            cache: true,
+            retryTimes: 2
+          })
+          .then(response => {
+           //console.log(response);
+            commit('SET_RECRUITMENT_STATUS', response.data); 
+            resolve(true);
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    },
   
     GET_RECRUITMENTS({commit}) {
       let current_api = API_CONFIG.API_ENDPOINT + 'recruitments'
@@ -136,7 +161,7 @@ import {
     },
 
 
-    EDIT_POSITION({}, recruitment_details) {
+    EDIT_RECRUITMENT({}, recruitment_details) {
       let data = { 
         ...recruitment_details
     }
@@ -160,7 +185,7 @@ import {
 
 
   
-    DELETE_POSITION({}, id) {
+    DELETE_RECRUITMENT({}, id) {
   
       let current_api = API_CONFIG.API_ENDPOINT + 'recruitments/'+ id
 
@@ -189,6 +214,9 @@ import {
     },
     get_recruitment(state){
       return state.recruitment
+    },
+    get_recruitment_status(state){
+      return state.recruitment_status
     }
 
   };

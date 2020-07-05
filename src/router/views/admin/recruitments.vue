@@ -18,13 +18,13 @@
 
                     <div class="col-6 col-md-6 col-sm-6 col-lg-6 col-xl-6">
 
-                        <div v-if="user_role.name === CEO() || user_role.name === HR_MANAGER() " class="hrms_actions text-right">
+                        <!-- <div v-if="user_role.name === CEO() || user_role.name === HR_MANAGER() " class="hrms_actions text-right">
                               <ul>
                                 <li>
                                     <b-button variant="primary" @click="openNewRecruitmentModal">Add to Recruitment</b-button>
                                 </li>
                               </ul>
-                          </div>
+                          </div> -->
                     </div>
                </b-row>
 
@@ -77,8 +77,8 @@
                           <template v-if="user_role.name === HR_MANAGER() || user_role.name === CEO() || user_role.name === DEPARTMENT_MANAGER()">
                               <td class="table-actions">
                                  <!-- 8<b-button size="md"  :to="{ name: 'usersSingle', params: { userId: user_item.id }}" variant="info" class="ml-2" type="submit">View</b-button> -->
-                                <b-button size="md" @click="deleteUser(recruit.id)" variant="danger" class="ml-2" type="submit">Delete</b-button>
-                                <b-button size="md"  @click="openEditUserModal(recruit.id)" variant="success" class="ml-2" type="submit">Edit</b-button>
+                                <b-button size="md" @click="deleteRecruitment(recruit.id, recruit.applicant)" variant="danger" class="ml-2" type="submit">Delete</b-button>
+                                <b-button size="md"  @click="openEditUserModal(recruit.id, recruit.applicant)" variant="success" class="ml-2" type="submit">Edit</b-button>
                               </td>
                           </template>
                            <template v-else>
@@ -94,7 +94,7 @@
       </div>
 
       <create-new-recruitment-modal ref="CreateNewRecruitmentModal"/>
-      <edit-user-modal ref="EditUserModal"/>
+      <edit-recruit-modal ref="EditRecruitmentModal"/>
 
 
     </div>
@@ -102,7 +102,7 @@
 </template>
 <script>
 import CreateRecruitmentModal from '@modals/createNewRecruitmentModal.vue'
-import EditUserModal from '@modals/editUserModal.vue'
+import EditRecruitmentModal from '@modals/editRecruitmentModal.vue'
 
 import { globalMixings } from '@utils/global-mixin'
 export default {
@@ -110,7 +110,7 @@ export default {
   name : 'RecruitmentsPage',
   components:{
     'create-new-recruitment-modal' : CreateRecruitmentModal,
-    'edit-user-modal': EditUserModal
+    'edit-recruit-modal': EditRecruitmentModal
   },
   computed: {
       recruitments_list(){
@@ -146,9 +146,16 @@ export default {
          let result =  await this.$store.dispatch('recruitments/GET_RECRUITMENTS')
 
       },
-      async deleteRecruitment(id){
-         let result =  await this.$store.dispatch('recruitments/DELETE_RECRUITMENT', id)
-        await this.$store.dispatch('recruitments/GET_RECRUITMENTS')
+      async deleteRecruitment(id, applicant){
+        var name = applicant.first_name.charAt(0).toUpperCase() + applicant.first_name.slice(1)
+        var lastname = applicant.last_name.charAt(0).toUpperCase() + applicant.last_name.slice(1)
+
+        var confirmation = confirm("Do you want to delete  " + name + " " + lastname);
+        if(confirmation){
+          let result =  await this.$store.dispatch('recruitments/DELETE_RECRUITMENT', id)
+          await this.$store.dispatch('recruitments/GET_RECRUITMENTS')
+        }
+         
 
          
       },
@@ -156,9 +163,9 @@ export default {
       openNewRecruitmentModal(){
        this.$refs.CreateNewRecruitmentModal.toggleModal();
       },
-      openEditUserModal(id){
+      openEditUserModal(id, applicant){
        
-        this.$refs.EditUserModal.toggleModal(id);
+        this.$refs.EditRecruitmentModal.toggleModal(id, applicant);
       }
 
   },

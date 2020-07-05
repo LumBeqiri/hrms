@@ -36,6 +36,8 @@
 
              </template>
              <template v-else>
+                <h3>    Data below comes from Recruitments and does not corespond with the current page</h3>
+               
 
                 <table class="hrms_table">
                     <thead>
@@ -49,7 +51,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(recruit, index) in recruitments_list" :key="index">
+                      <tr v-for="(recruit, index) in recruitments_list.data" :key="index">
                           <td>
                             {{recruit.applicant.first_name | capitalizeLetter}}
                           </td>

@@ -75,7 +75,7 @@
                     <label>Position</label>
                     <select class="hrms_input" v-model="position_id">
                         <option value>Select Position</option>
-                        <option v-for="(position,index) in positionList" :key="index" :value="position.id" >{{position.name}}</option>
+                        <option v-for="(position,index) in positionList.data" :key="index" :value="position.id" >{{position.name}}</option>
                     </select>
                     <p v-show="validation.hasError('position_id')" class="error_message">
                         <template v-if="validation.allErrors('position_id') == 'Required.'">

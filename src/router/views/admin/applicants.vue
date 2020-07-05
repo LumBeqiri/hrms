@@ -74,7 +74,9 @@
                           <template v-if="user_role.name === HR_MANAGER() || user_role.name === CEO()">
                               <td class="table-actions">
                                 <b-button size="md" @click="deleteApplicant(applicant.id, applicant.first_name)" variant="danger" class="ml-2" type="submit">Delete</b-button>
-                                <b-button size="md"  @click="openEditApplicantModal(applicant.id)" variant="success" class="ml-2" type="submit">Edit</b-button>
+                                <b-button size="md"  @click="openEditApplicantModal(applicant.id)" variant="primary" class="ml-2" type="submit">Edit</b-button>
+                                <b-button size="md"  @click="addRecruit(applicant.id)" variant="success" class="ml-2" type="submit">Add to Recruitment</b-button>
+
                               </td>
                           </template>
                            <template v-else>
@@ -130,6 +132,20 @@ export default {
      }
   },
   methods:{
+
+    async addRecruit(applicant_id){
+        let data = {
+          "status_id" : 1,
+          "applicant_id" : applicant_id,
+          "notes" : "Just added as a recruit"
+        }
+        let result = await this.$store.dispatch('recruitments/CREATE_RECRUITMENT', data)
+        if(!result){
+          alert("Something went wrong!")
+        }else{
+          alert('Succesfully added to Recruitment')
+        }
+    },
 
       async goNext(current_page) {
       await this.$store.dispatch('applicants/GET_NEXT_PAGE', current_page)
