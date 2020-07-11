@@ -29,14 +29,20 @@
                </b-row>
 
             
-             <template v-if="recruitments_list.length == 0">
+             <template v-if="payrolls.length == 0">
                 <div class="text-center mt-4 ml-4 mb-4 mr-4">
                        <b-spinner label="Spinning"></b-spinner>
                 </div>
 
              </template>
              <template v-else>
-                <h3>    Data below comes from Recruitments and does not corespond with the current page</h3>
+               
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                    <li style="cursor: pointer" class="page-item"><a class="page-link" @click="goBack(payrolls.prev_page_url)">Previous</a></li>
+                    <li style="cursor: pointer" class="page-item"><a class="page-link" @click="goNext(payrolls.next_page_url)">Next</a></li>
+                  </ul>
+                 </nav>
                
 
                 <table class="hrms_table">
@@ -44,43 +50,26 @@
                         <tr>
                           <td>Name</td>
                           <td>Surname</td>
-                          <td>Status</td>
-                          <td>Notes</td>
-                          <td>Position</td>
-                          <td style="padding-right:50px;" class="l">Operations</td>
+                          <td>Salary</td>
+                          <td>Bonus</td>
+                          <!-- <td style="padding-right:50px;" class="l">Operations</td> -->
                         </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(recruit, index) in recruitments_list.data" :key="index">
+                      <tr v-for="(payroll, index) in payrolls.data" :key="index">
                           <td>
-                            {{recruit.applicant.first_name | capitalizeLetter}}
-                          </td>
-                          <td>
-                             {{recruit.applicant.last_name | capitalizeLetter}}
+                            Filan
                           </td>
                           <td>
-                             {{recruit.recruitment_status.name | capitalizeLetter }}
-                          </td>
-                          <td v-if="recruit.notes ===''">
-                            No notes yet
-                          </td>
-                          <td v-else>
-                              {{recruit.notes }}
+                             Fisteku
                           </td>
                           <td>
-                             {{recruit.applicant.position.name}}
+                             {{payroll.sum}}
+                          </td>
+                          <td >
+                            {{payroll.bonus}}
                           </td>
 
-                          <template v-if="user_role.name === HR_MANAGER() || user_role.name === CEO() || user_role.name === DEPARTMENT_MANAGER()">
-                              <td class="table-actions">
-                                 <!-- 8<b-button size="md"  :to="{ name: 'usersSingle', params: { userId: user_item.id }}" variant="info" class="ml-2" type="submit">View</b-button> -->
-                                <b-button size="md" @click="deleteUser(recruit.id)" variant="danger" class="ml-2" type="submit">Delete</b-button>
-                                <b-button size="md"  @click="openEditUserModal(recruit.id)" variant="success" class="ml-2" type="submit">Edit</b-button>
-                              </td>
-                          </template>
-                           <template v-else>
-                             
-                          </template>
 
                       </tr>
                     </tbody>
@@ -115,34 +104,30 @@ export default {
 
   },
   computed: {
-      recruitments_list(){
-        return this.$store.getters['recruitments/get_recruitments']
+      payroll_list(){
+        this.payrolls =  this.$store.getters['payrolls/get_payrolls']
       },
   },
   watch: {
-      recruitments_list(newvalue){
+      payroll_list(newvalue){
               return newvalue
       },
       $route: {
           immediate: true,
           handler(to, from) {
-              document.title = to.meta.title || 'Recruitments';
+              document.title = to.meta.title || 'Payrolls';
           }
       },
   },
   data(){
-     return {}
+     return {
+       payrolls:{}
+     }
   },
   methods:{
-      async get_recruitments(){
-         let result =  await this.$store.dispatch('recruitments/GET_RECRUITMENTS')
+      async get_payrolls(){
+          await this.$store.dispatch('payrolls/GET_PAYROLLS')
 
-      },
-      async deleteRecruitment(id){
-         let result =  await this.$store.dispatch('recruitments/DELETE_RECRUITMENT', id)
-        await this.$store.dispatch('recruitments/GET_RECRUITMENTS')
-
-         
       },
 
       openNewPayrollModal(){
@@ -151,11 +136,19 @@ export default {
       openEditUserModal(id){
        
         this.$refs.EditUserModal.toggleModal(id);
-      }
+      },
+
+      async goNext(current_page) {
+        await this.$store.dispatch('payrolls/GET_NEXT_PAGE', current_page)
+      },
+    
+    async goBack(current_page) {
+      await this.$store.dispatch('payrolls/GET_PREVIOUS_PAGE', current_page)
+		},
 
   },
   created(){
-      this.get_recruitments();
+      this.get_payrolls();
   },
   mounted(){},
 }

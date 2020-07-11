@@ -21,7 +21,6 @@ const site_axios = axios.create({
 })
 
 
-
 site_axios.interceptors.request.use(function (config) {
   const token = Vue.$cookies.get("token");
   if (token != null) {

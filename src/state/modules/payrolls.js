@@ -5,7 +5,8 @@ import {
   
   
   const state = {
-    bonuses: []
+    bonuses: [],
+    payrolls: []
   };
   
   
@@ -13,14 +14,61 @@ import {
     SET_BONUSES(state, data) {
       state.bonuses = data
     },
+    SET_PAYROLLS(state, data) {
+      state.payrolls = data
+    },
 
     RESET(state) {
-      state.bonuses = []   
+      state.bonuses = [],
+      state.payrolls = []
     }
   };
   
   
   const actions = {
+
+
+    GET_NEXT_PAGE({commit}, page_url) {
+      let current_api = page_url
+  
+      return new Promise((resolve, reject) => {
+        API_CONFIG.SITE_AXIOS
+          .get(current_api, {}, {
+            cache: true,
+            retryTimes: 2
+          })
+          .then(response => {
+          // console.log(response.data);
+            commit('SET_PAYROLLS', response.data); 
+            resolve(true);
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    },
+  
+    GET_PREVIOUS_PAGE({commit}, page_url) {
+      let current_api = page_url
+  
+      return new Promise((resolve, reject) => {
+        API_CONFIG.SITE_AXIOS
+          .get(current_api, {}, {
+            cache: true,
+            retryTimes: 2
+          })
+          .then(response => {
+          // console.log(response.data);
+            commit('SET_PAYROLLS', response.data); 
+            resolve(true);
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    },
+
+
   
     ADD_BONUS({}, bonus_details) {
    
@@ -46,6 +94,27 @@ import {
       });
     },
 
+    GET_PAYROLLS({commit}) {
+      let current_api = API_CONFIG.API_ENDPOINT + 'payrolls'
+  
+  
+      return new Promise((resolve, reject) => {
+        API_CONFIG.SITE_AXIOS
+          .get(current_api, {}, {
+            cache: true,
+            retryTimes: 2
+          })
+          .then(response => {
+            console.log(response);
+            commit('SET_PAYROLLS', response.data); 
+            resolve(true);
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    },
+
     
 
 
@@ -57,6 +126,9 @@ import {
     },
     get_recruitment(state){
       return state.recruitment
+    },
+    get_payrolls(state){
+      return state.payrolls
     }
 
   };
