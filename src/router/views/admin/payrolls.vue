@@ -40,9 +40,12 @@
                 <nav aria-label="Page navigation example">
                   <ul class="pagination">
                     <li style="cursor: pointer" class="page-item"><a class="page-link" @click="goBack(payrolls.prev_page_url)">Previous</a></li>
-                    <li style="cursor: pointer" class="page-item"><a class="page-link" @click="goNext(payrolls.next_page_url)">Next</a></li>
+                    <li style="cursor: pointer; margin-right:17px" class="page-item"><a class="page-link" @click="goNext(payrolls.next_page_url)">Next</a></li>
+                    <p>Page {{payrolls.current_page}}</p>
+                    
                   </ul>
                  </nav>
+
                
 
                 <table class="hrms_table">
@@ -52,22 +55,27 @@
                           <td>Surname</td>
                           <td>Salary</td>
                           <td>Bonus</td>
+                          <td>Date</td>
+
                           <!-- <td style="padding-right:50px;" class="l">Operations</td> -->
                         </tr>
                     </thead>
                     <tbody>
                       <tr v-for="(payroll, index) in payrolls.data" :key="index">
                           <td>
-                            Filan
+                            {{payroll.user.first_name}}
                           </td>
                           <td>
-                             Fisteku
+                             {{payroll.user.last_name}}
                           </td>
                           <td>
                              {{payroll.sum}}
                           </td>
                           <td >
                             {{payroll.bonus}}
+                          </td>
+                          <td >
+                            {{payroll.created_at | moment("dddd, MMMM Do YYYY")}} 
                           </td>
 
 

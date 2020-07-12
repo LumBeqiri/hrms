@@ -39,7 +39,9 @@
                 <nav aria-label="Page navigation example">
                   <ul class="pagination">
                     <li style="cursor: pointer" class="page-item"><a class="page-link" @click="goBack(recruitments.prev_page_url)">Previous</a></li>
-                    <li style="cursor: pointer" class="page-item"><a class="page-link" @click="goNext(recruitments.next_page_url)">Next</a></li>
+                    <li style="cursor: pointer; margin-right:17px" class="page-item"><a class="page-link" @click="goNext(recruitments.next_page_url)">Next</a></li>
+                    <p>Page {{recruitments.current_page}}</p>
+
                   </ul>
                  </nav>
                 <table class="hrms_table">

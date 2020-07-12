@@ -40,7 +40,9 @@
         <nav aria-label="Page navigation example">
                   <ul class="pagination">
                     <li style="cursor: pointer" class="page-item"><a class="page-link" @click="goBack(departments.prev_page_url)">Previous</a></li>
-                    <li style="cursor: pointer" class="page-item"><a class="page-link" @click="goNext(departments.next_page_url)">Next</a></li>
+                    <li style="cursor: pointer;margin-right:17px" class="page-item"><a class="page-link" @click="goNext(departments.next_page_url)">Next</a></li>
+                    <p>Page {{departments.current_page}}</p>
+
                   </ul>
                  </nav>
         <table class="hrms_table">
@@ -94,8 +96,7 @@ export default {
   },
   computed: {
       departmentList(){
-
-              this.departments = this.$store.getters['departments/get_department_details']
+        this.departments = this.$store.getters['departments/get_department_details']
       },
   },
   watch: {
@@ -154,6 +155,7 @@ export default {
   },
   created(){
       this.get_departments();
+     
   },
   mounted(){},
 }
