@@ -46,7 +46,26 @@
                   </ul>
                  </nav>
 
-               
+                <div style="margin-bottom:20px" class="form__group" >
+                        <input
+                        type="date"
+                        v-model="date_from"
+                        placeholder="Start date"
+                        class="hrms_input"
+                        > 
+                        <input
+                        type="date"
+                        v-model="date_to"
+                        placeholder="End date"
+                        class="hrms_input"
+                        > 
+                        <select style="height:32px" class="hrms_input" v-model="bonus">
+                            <option value="">Select Bonus</option>
+                            <option value="true">With Bonus</option>
+                            <option value="false">Without Bonus</option>
+                        </select>
+                    <b-button size="md"  @click="searchFilter()" variant="primary" class="ml-2" type="submit">Search</b-button>
+                </div>
 
                 <table class="hrms_table">
                     <thead>
@@ -129,7 +148,10 @@ export default {
   },
   data(){
      return {
-       payrolls:{}
+       payrolls:{},
+       date_from: '',
+       date_to: '',
+       bonus: ''
      }
   },
   methods:{
@@ -152,7 +174,16 @@ export default {
     
     async goBack(current_page) {
       await this.$store.dispatch('payrolls/GET_PREVIOUS_PAGE', current_page)
-		},
+    },
+    
+    async searchFilter(){
+
+          let search_string = "?date_from=" + this.date_from+"&date_to=" + this.date_to + "&has_bonus=" + this.bonus;
+          let result =  await this.$store.dispatch('payrolls/GET_PAYROLL_RESULTS', search_string)
+          if(!result){
+            alert('Something went wrong')
+          }
+      }
 
   },
   created(){

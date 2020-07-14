@@ -115,7 +115,28 @@ import {
       });
     },
 
-    
+    GET_PAYROLL_RESULTS({commit}, search_string) {
+      if(search_string === ""){
+        return
+      }
+      let current_api = API_CONFIG.API_ENDPOINT + 'payrolls'+ search_string
+      console.log(search_string)
+  
+      return new Promise((resolve, reject) => {
+        API_CONFIG.SITE_AXIOS
+          .get(current_api, {}, {
+            cache: true,
+            retryTimes: 2
+          })
+          .then(response => {
+            commit('SET_PAYROLLS', response.data)
+            resolve(true);
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    },
 
 
   };
