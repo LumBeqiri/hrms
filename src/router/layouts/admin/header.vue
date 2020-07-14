@@ -18,6 +18,8 @@
                             <b-nav-item :to="'/app/applicants'">Applicants</b-nav-item>
                             <b-nav-item :to="'/app/recruitments'">Recruitments</b-nav-item>
                             <b-nav-item :to="'/app/payrolls'">Payrolls</b-nav-item>
+                            <b-nav-item :to="'/app/requests'">Requests</b-nav-item>
+
                         </b-navbar-nav>
                         <b-navbar-nav v-else-if="user_role.name === HR_MANAGER() || user_role.name === CEO() || user_role.name === DEPARTMENT_MANAGER()">
                             <b-nav-item :to="'/app/dashboard'">Dashboard</b-nav-item>
@@ -27,9 +29,12 @@
                             <b-nav-item :to="'/app/applicants'">Applicants</b-nav-item>
                             <b-nav-item :to="'/app/recruitments'">Recruitments</b-nav-item>
                             <b-nav-item :to="'/app/payrolls'">Payrolls</b-nav-item>
+                            <b-nav-item :to="'/app/requests'">Requests</b-nav-item>
                         </b-navbar-nav>
                         <b-navbar-nav v-else>
                             <b-nav-item :to="'/app/payrolls'">Payrolls</b-nav-item>
+                            <b-nav-item :to="'/app/requests'">Requests</b-nav-item>
+
                         </b-navbar-nav>
 
 
@@ -44,25 +49,24 @@
                                 <b-dropdown-item  @click="logoutUser()">Sign Out</b-dropdown-item>
                               </b-nav-item-dropdown>
                             </b-navbar-nav>
-
                         </b-navbar-nav>
                         </b-collapse>
                     </div>
                 </b-navbar>
 
-      <edit-user-modal ref="EditUserModal"/>
+      <edit-profile-modal ref="EditProfileModal"/>
 
    </header>
 </template>
 
 <script>
 import {globalMixings} from '@/src/utils/global-mixin.js'
-import EditUserModal from '@modals/editUserModal.vue'
+import EditProfileModal from '@modals/editProfileModal.vue'
 
 export default {
     mixins: [ globalMixings ],
     components: { 
-           'edit-user-modal': EditUserModal
+           'edit-profile-modal': EditProfileModal
     },
     computed: {
         user_profile_info(){
@@ -89,7 +93,7 @@ export default {
 
       },
       openEditUserModal(id){
-        this.$refs.EditUserModal.toggleModal(id);
+        this.$refs.EditProfileModal.toggleModal(id);
       }
 
     },

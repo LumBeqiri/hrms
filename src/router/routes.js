@@ -10,9 +10,11 @@ const DepartmentSingle = () => import(/* webpackChunkName: "DepartmentSingle" */
 const Users = () => import(/* webpackChunkName: "Users" */ '@views/admin/users.vue');
 const UsersSingle = () => import(/* webpackChunkName: "Users" */ '@views/admin/usersSingle.vue');
 const Positions = () => import(/* webpackChunkName: "Positions" */ '@views/admin/positions.vue');
-const Applicants = () => import(/* webpackChunkName: "Positions" */ '@views/admin/applicants.vue');
-const Recruitments = () => import(/* webpackChunkName: "Positions" */ '@views/admin/recruitments.vue');
-const Payrolls = () => import(/* webpackChunkName: "Positions" */ '@views/admin/payrolls.vue');
+const Applicants = () => import(/* webpackChunkName: "Applicants" */ '@views/admin/applicants.vue');
+const Recruitments = () => import(/* webpackChunkName: "Recruitments" */ '@views/admin/recruitments.vue');
+const Payrolls = () => import(/* webpackChunkName: "Payrolls" */ '@views/admin/payrolls.vue');
+const Requests = () => import(/* webpackChunkName: "Requests" */ '@views/admin/requests.vue');
+
 
 
 
@@ -122,6 +124,12 @@ export default [
         path: 'payrolls',
         name: 'payrolls',
         component: Payrolls,
+      },
+      {
+
+        path: 'requests',
+        name: 'requests',
+        component: Requests,
       },
 
 
