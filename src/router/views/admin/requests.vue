@@ -68,10 +68,11 @@
                              {{request_item.details}}
                           </td>
                           <td>
-                             {{request_item.status_id}}
+                             {{request_item.user_request_status.name}}
                           </td>
                           <td>
-                             Sick Day
+                             {{request_item.user_request_type.name}}
+                             
                           </td>
                           <td>
                              {{request_item.date_from | moment("dddd, MMMM Do YYYY") }} <b>TO</b> {{request_item.date_to | moment("dddd, MMMM Do YYYY")}}

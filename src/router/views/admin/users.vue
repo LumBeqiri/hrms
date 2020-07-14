@@ -44,6 +44,25 @@
 
                   </ul>
                  </nav>
+                 <div style="margin-bottom:20px" class="form__group" >
+                        <input
+                        type="text"
+                        v-model="search_email"
+                        placeholder="Search email"
+                        class="hrms_input"
+                        required
+                        > 
+                        <select style="height:31px" class="hrms_input" v-model="department_id">
+                            <option value>Select Department</option>
+                            <option v-for="(department, index) in departmentList.data" :key="index" :value="department.id" >{{department.name}}</option>
+                        </select>
+
+                        <select style="height:31px" class="hrms_input" v-model="role_id">
+                          <option value>Select Role</option>
+                          <option v-for="(role,index) in roles_list" :key="index" :value="role.id" >{{role.name}}</option>
+                        </select>
+                    <b-button size="md"  @click="searchFilter()" variant="primary" class="ml-2" type="submit">Search</b-button>
+                </div>
                 <table class="hrms_table">
                     <thead>
                         <tr>
@@ -111,10 +130,22 @@ export default {
   computed: {
       hrms_users_list(){
             this.users =  this.$store.getters['users/get_hrms_users']
-      }
+      },
+      roles_list(){
+            return this.$store.getters['roles/get_roles']
+      },
+      departmentList(){
+          return this.$store.getters['departments/get_department_details']
+    }
   },
   watch: {
       hrms_users_list(newvalue){
+              return newvalue
+      },
+      roles_list(newvalue){
+              return newvalue
+      },
+      departmentList(newvalue){
               return newvalue
       },
 
@@ -127,7 +158,10 @@ export default {
   },
   data(){
      return {
-       users : {}
+       users : {},
+       department_id:'',
+       role_id : '',
+       search_email : ''
      }
   },
 
@@ -160,7 +194,15 @@ export default {
       },
       openEditUserModal(id){
         this.$refs.EditUserModal.toggleModal(id);
-      }
+      },
+
+      async searchFilter(){
+          let search_string = "?email=" + this.search_email+"&department=" + this.department_id + "&role=" + this.role_id;
+          let result =  await this.$store.dispatch('users/GET_USER_RESULTS', search_string)
+          if(!result){
+            alert('Something went wrong')
+          }
+      },
 
   },
   created(){

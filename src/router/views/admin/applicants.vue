@@ -42,6 +42,30 @@
 
                   </ul>
                  </nav>
+                 <!--search form here-->
+                <div style="margin-bottom:20px" class="form__group" >
+                        <input
+                        type="text"
+                        v-model="search_name"
+                        placeholder="Search name"
+                        class="hrms_input"
+                        required
+                        > 
+                         <input
+                        type="text"
+                        v-model="search_last_name"
+                        placeholder="Search last name"
+                        class="hrms_input"
+                        required
+                        > 
+                        <select style = "height:31px" class="hrms_input" v-model="position_id">
+                        <option value>Select Position</option>
+                        <option v-for="(position,index) in positionList.data" :key="index" :value="position.id" >{{position.name}}</option>
+                    </select>
+                    <b-button size="md"  @click="searchFilter()" variant="primary" class="ml-2" type="submit">Search</b-button>
+                </div>
+ 
+
                 <table class="hrms_table">
                     <thead>
                         <tr>
@@ -116,9 +140,15 @@ export default {
       applicants_list(){
               this.applicants = this.$store.getters['applicants/get_applicants']
       },
+       positionList(){
+          return this.$store.getters['positions/get_positions']
+    }
   },
   watch: {
       applicants_list(newvalue){
+              return newvalue
+      },
+      positionList(newvalue){
               return newvalue
       },
       $route: {
@@ -130,7 +160,10 @@ export default {
   },
   data(){
      return {
-       applicants : {}
+       applicants : {},
+       search_name : '',
+       search_last_name: '',
+       position_id: ''
      }
   },
   methods:{
@@ -158,20 +191,26 @@ export default {
 		},
 
 
-
-
       async get_applicants(){
          let result =  await this.$store.dispatch('applicants/GET_APPLICANTS')
 
       },
       async deleteApplicant(id, name){
-      var result = confirm("Want to delete " + name + "?");
-      if (result) {
-        let result =  await this.$store.dispatch('applicants/DELETE_APPLICANT', id)
-        await this.$store.dispatch('applicants/GET_APPLICANTS')
-      }
+        var result = confirm("Want to delete " + name + "?");
+        if (result) {
+          let result =  await this.$store.dispatch('applicants/DELETE_APPLICANT', id)
+          await this.$store.dispatch('applicants/GET_APPLICANTS')
+        }
 
          
+      },
+
+      async searchFilter(){
+          let search_string = "?first_name=" + this.search_name+"&last_name=" + this.search_last_name + "&position="+ this.position_id;
+          let result =  await this.$store.dispatch('applicants/GET_APPLICANT_RESULTS', search_string)
+          if(!result){
+            alert('Something went wrong')
+          }
       },
       
       openNewApplicantModal(){

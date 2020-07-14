@@ -112,7 +112,7 @@ const actions = {
   },
 
 
-  //create user using api
+
   CREATE_REQUEST({}, user_details) {
    
     let current_api = API_CONFIG.API_ENDPOINT + 'requests'
