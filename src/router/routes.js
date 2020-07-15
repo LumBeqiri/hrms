@@ -20,37 +20,32 @@ const Requests = () => import(/* webpackChunkName: "Requests" */ '@views/admin/r
 
 export default [
   /* ------------------------ PUBLIC SCREENS ------------------------------ */
-  {
-    path: '/',
-    component: resolve => require(['@layouts/LayoutPublic.vue'], resolve),
-    meta: {
-      authRequired: false
-    },
-    children: [{
-        path: '',
-        name: 'Home',
-        component: resolve => require(['@views/Home.vue'], resolve)
-      },
-      {
-        path: 'about',
-        name: 'about',
-        component: resolve => require(['@views/About.vue'], resolve)
-      }
-    ],
-  },
+  // {
+  //   path: '/',
+  //   component: resolve => require(['@layouts/LayoutPublic.vue'], resolve),
+  //   meta: {
+  //     authRequired: false
+  //   },
+  //   children: [{
+  //       path: '',
+  //       name: 'Home',
+  //       component: resolve => require(['@views/Home.vue'], resolve)
+  //     },
+  //     {
+  //       path: 'about',
+  //       name: 'about',
+  //       component: resolve => require(['@views/About.vue'], resolve)
+  //     }
+  //   ],
+  // },
   /* ------------------------ AUTH SCREENS ------------------------------ */
   {
-    path: '/auth',
+    path: '/',
     component: resolve => require(['@layouts/LayoutAuthentication.vue'], resolve),
     children: [{
-        path: '/login',
+        path: '/',
         name: 'Login',
         component: Login,
-      },
-      {
-        path: '/signup',
-        name: 'Signup',
-        component: Signup,
       }
     ],
   },
