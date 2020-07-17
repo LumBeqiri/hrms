@@ -175,8 +175,12 @@ export default {
       async deleteUser(id){
         var result = confirm("Want to delete?");
         if (result) {
-          let result =  await this.$store.dispatch('users/DELETE_USER', id)
-          await this.$store.dispatch('users/GET_HRMS_USERS')
+          let result_delete =  await this.$store.dispatch('users/DELETE_USER', id)
+          if(result_delete){
+              await this.$store.dispatch('users/GET_HRMS_USERS')
+          }else{
+            alert('Cannot perform that action')
+          }
         }
          
       },

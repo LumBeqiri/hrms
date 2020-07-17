@@ -45,7 +45,14 @@ export default {
   name : 'LoginForm',
   components:{},
   computed: {},
-  watch: {},
+  watch: {
+    $route: {
+          immediate: true,
+          handler(to, from) {
+              document.title = to.meta.title || 'Login';
+          }
+      },
+  },
   validators: {
     email: function(value) {
       return this.$Validator.value(value).required().email();

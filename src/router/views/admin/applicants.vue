@@ -198,8 +198,12 @@ export default {
       async deleteApplicant(id, name){
         var result = confirm("Want to delete " + name + "?");
         if (result) {
-          let result =  await this.$store.dispatch('applicants/DELETE_APPLICANT', id)
-          await this.$store.dispatch('applicants/GET_APPLICANTS')
+          let result_delete =  await this.$store.dispatch('applicants/DELETE_APPLICANT', id)
+          if(result_delete){
+            await this.$store.dispatch('applicants/GET_APPLICANTS')
+          }else{
+            alert('Cannot perform that action')
+          }
         }
 
          

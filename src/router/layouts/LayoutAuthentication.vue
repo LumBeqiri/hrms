@@ -8,9 +8,9 @@
             </b-navbar-brand>
 
 
-             <b-navbar-nav>
+             <!-- <b-navbar-nav>
                 <b-nav-item :to="'/'">Go back to home</b-nav-item>
-              </b-navbar-nav>
+              </b-navbar-nav> -->
          </div>
      </b-navbar>
      <router-view></router-view>

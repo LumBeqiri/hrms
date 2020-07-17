@@ -61,7 +61,7 @@
                   <template v-if="user_role.name === CEO() || user_role.name === HR_MANAGER() || user_role.name === DEPARTMENT_MANAGER()">
                       <td class="table-actions">
                         <b-button size="md"  @click="openEditDepartmentModal(department_item.id, department_item.name)" variant="success" class="ml-2" type="submit">Edit</b-button>
-                        <b-button size="md" @click="deleteDepartment(department_item.id, department_item.name)" variant="danger" class="ml-2" type="submit">Delete</b-button>
+                        <!-- <b-button size="md" @click="deleteDepartment(department_item.id, department_item.name)" variant="danger" class="ml-2" type="submit">Delete</b-button> -->
                       </td>
                   </template>
                     <template v-else>
@@ -135,14 +135,19 @@ export default {
       editDepartment(departmentID){
         alert(departmentID)
       },
-      async deleteDepartment(id,name){
-        var result = confirm("Want to delete " +name +"?");
-        if (result) {
-            let result =  await this.$store.dispatch('departments/DELETE_DEPARTMENT', id)
-            await this.$store.dispatch('departments/GET_DEPARTMENTS')
-        }
+      // async deleteDepartment(id,name){
+      //   var result = confirm("Want to delete " +name +"?");
+      //   if (result) {
+      //       let result_delete =  await this.$store.dispatch('departments/DELETE_DEPARTMENT', id)
+      //       console.log(result_delete)
+      //       if(result_delete){
+      //          await this.$store.dispatch('departments/GET_DEPARTMENTS')
+      //       }else{
+      //         alert('Cannot perform that action')
+      //       }
+      //   }
         
-      },
+      // },
 
        openNewDepartmentModal(){
        this.$refs.CreateNewDepartmentModal.toggleModal();

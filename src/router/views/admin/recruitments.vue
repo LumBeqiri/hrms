@@ -155,7 +155,11 @@ export default {
         var confirmation = confirm("Do you want to delete  " + name + " " + lastname);
         if(confirmation){
           let result =  await this.$store.dispatch('recruitments/DELETE_RECRUITMENT', id)
-          await this.$store.dispatch('recruitments/GET_RECRUITMENTS')
+          if(result){
+            await this.$store.dispatch('recruitments/GET_RECRUITMENTS')
+          }else{
+            alert('Cannot perform that action')
+          }
         }
          
 

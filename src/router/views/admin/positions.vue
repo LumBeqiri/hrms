@@ -134,8 +134,12 @@ export default {
       async deletePosition(id, name){
         var result = confirm("Want to delete " + name + "?");
         if (result) {
-         let result =  await this.$store.dispatch('positions/DELETE_POSITION', id)
-         await this.$store.dispatch('positions/GET_POSITIONS')
+         let result_delete =  await this.$store.dispatch('positions/DELETE_POSITION', id)
+         if(result_delete){
+           await this.$store.dispatch('positions/GET_POSITIONS')
+         }else{
+           alert('Cannot perform that action')
+         }
         }
          
       },
